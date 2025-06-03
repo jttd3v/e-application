@@ -16,6 +16,11 @@ if (!fs.existsSync(submissionsDir)) {
   fs.mkdirSync(submissionsDir);
 }
 
+const futureDir = path.join(__dirname, 'future_db');
+if (!fs.existsSync(futureDir)) {
+  fs.mkdirSync(futureDir);
+}
+
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: Number(process.env.EMAIL_PORT) || 587,
@@ -59,11 +64,16 @@ app.post('/submit', async (req, res) => {
   const timestamp = Date.now();
   const fileName = `submission-${timestamp}.json`;
   const pdfName = `submission-${timestamp}.pdf`;
+  const sqlName = `submission-${timestamp}.sql`;
   const filePath = path.join(submissionsDir, fileName);
   const pdfPath = path.join(submissionsDir, pdfName);
+  const sqlPath = path.join(futureDir, sqlName);
 
   try {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    const escaped = JSON.stringify(data).replace(/'/g, "''");
+    const sql = `INSERT INTO submissions (data) VALUES ('${escaped}');\n`;
+    fs.writeFileSync(sqlPath, sql);
     await generatePDF(data, pdfPath);
     await sendEmail(pdfPath);
     res.json({ success: true });

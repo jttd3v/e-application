@@ -21,6 +21,8 @@ This project contains a client-side form for collecting sea experience data. A s
 
 Submitted data will be saved in the `submissions/` directory with a unique timestamped filename. In addition, a PDF copy of each submission is generated and emailed to the address defined in your environment variables using Nodemailer.
 
+Each submission is also written to the `future_db/` directory as an SQL file containing an `INSERT` statement. These files can be imported into a MySQL database later using `mysql` or any preferred tool.
+
 ### Email Configuration
 
 Set the following values in your `.env` file before starting the server:
