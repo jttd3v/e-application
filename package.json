@@ -4,11 +4,16 @@
   "description": "Simple server for e-application form",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest"
   },
   "dependencies": {
     "express": "^4.19.2",
     "nodemailer": "^6.9.9",
     "pdfkit": "^0.15.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3"
   }
 }
