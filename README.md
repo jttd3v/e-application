@@ -8,7 +8,12 @@ This project contains a client-side form for collecting sea experience data. A s
    ```bash
    npm install
    ```
-2. Start the server:
+2. Copy `.env.example` to `.env` and update the values as needed:
+   ```bash
+   cp .env.example .env
+   # then edit .env
+   ```
+3. Start the server:
    ```bash
    npm start
    ```
@@ -18,7 +23,7 @@ Submitted data will be saved in the `submissions/` directory with a unique times
 
 ### Email Configuration
 
-Set the following environment variables before starting the server:
+Set the following values in your `.env` file before starting the server:
 
 ```
 EMAIL_HOST   - SMTP host
