@@ -14,4 +14,18 @@ This project contains a client-side form for collecting sea experience data. A s
    ```
    The form is served at `http://localhost:3000/e-app-202506040528.html`.
 
-Submitted data will be saved in the `submissions/` directory with a unique timestamped filename.
+Submitted data will be saved in the `submissions/` directory with a unique timestamped filename. In addition, a PDF copy of each submission is generated and emailed to the address defined in your environment variables using Nodemailer.
+
+### Email Configuration
+
+Set the following environment variables before starting the server:
+
+```
+EMAIL_HOST   - SMTP host
+EMAIL_PORT   - SMTP port (e.g. 587)
+EMAIL_SECURE - 'true' for secure (TLS) connection
+EMAIL_USER   - SMTP username
+EMAIL_PASS   - SMTP password
+EMAIL_FROM   - Sender address
+EMAIL_TO     - Recipient address
+```
