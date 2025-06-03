@@ -403,16 +403,16 @@
         if (fromDate !== '-' && toDate !== '-') {
           const from = new Date(fromDate);
           const to = new Date(toDate);
-          if (!isNaN(from) && !isNaN(to)) {
-            const diff = Math.ceil((to - from) / (1000 * 60 * 60 * 24));
-            const months = Math.floor(diff / 30);
-            const days = diff % 30;
-            duration = `${months}m ${days}d`;
-            
-            // Add to totals
-            totalMonths += months;
-            totalDays += days;
-          }
+        if (!isNaN(from) && !isNaN(to) && to >= from) {
+          const diff = Math.ceil((to - from) / (1000 * 60 * 60 * 24));
+          const months = Math.floor(diff / 30);
+          const days = diff % 30;
+          duration = `${months}m ${days}d`;
+
+          // Add to totals
+          totalMonths += months;
+          totalDays += days;
+        }
         }
         
         // Handle BWTS - check if "Other" is selected
@@ -528,7 +528,7 @@
         const block = e.target.closest('.experience-block');
         const from = new Date(block.querySelector('.from-date').value);
         const to = new Date(block.querySelector('.to-date').value);
-        if (!isNaN(from) && !isNaN(to)) {
+        if (!isNaN(from) && !isNaN(to) && to >= from) {
           const diff = Math.ceil((to - from) / (1000 * 60 * 60 * 24));
           const months = Math.floor(diff / 30);
           const days = diff % 30;
