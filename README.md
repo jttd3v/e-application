@@ -29,3 +29,13 @@ EMAIL_PASS   - SMTP password
 EMAIL_FROM   - Sender address
 EMAIL_TO     - Recipient address
 ```
+
+## Branching Workflow
+
+1. Create a feature branch from `main` with a descriptive name, such as
+   `feature/update-form`.
+2. Commit small, focused changes and push the branch to GitHub.
+3. Open a Pull Request against `main`. Reviewers are assigned automatically via
+   the CODEOWNERS file.
+4. Ensure all checks pass and obtain at least one approval before merging.
+5. Delete the feature branch after the PR is merged.
