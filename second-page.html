@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CAMII - SEA EXPERIENCE FORM</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    /* Styles specific to camii-epp-06030651.html, harmonized with index.css */
+
+    /* Body is styled by index.css */
+
+    /* H1 is styled by .form-title class from index.css */
+
+    /* Form container provides main padding, use .content style for internal form padding */
+    #seaExperienceForm {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px 25px; /* Matches .content padding from index.css */
+    }
+
+    fieldset.experience-block {
+      border: 1px solid #E2E8F0; /* Softer border from index.css sections */
+      padding: 15px;
+      border-radius: 6px; /* Consistent border-radius */
+      margin-bottom: 15px;
+      background-color: #F9FAFB; /* Slightly off-white background for sections */
+    }
+
+    legend {
+      font-weight: 600;
+      padding: 0 5px;
+      color: #005A9C; /* Primary blue from index.css */
+      font-size: 14px; /* Consistent with minor titles */
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 4px; /* Existing structure is fine */
+      font-size: 12px; /* Consistent label size from index.css */
+      font-weight: 600; /* Bolder labels from index.css */
+      color: #2D3748; /* Text color from index.css */
+      gap: 4px;
+    }
+
+    input, select {
+      padding: 8px 10px; /* Increased padding from index.css */
+      font-size: 13px; /* Input text size from index.css */
+      border: 1px solid #CBD5E0; /* Softer, full border from index.css */
+      border-radius: 4px; /* Rounded corners for inputs */
+      margin-top: 4px; /* Kept from original, or can be removed if label gap is enough */
+      background: #FFFFFF;
+      color: #2D3748;
+      width: 100%; /* Make inputs take full width of their group */
+      box-sizing: border-box; /* Ensure padding and border are included in width */
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    input::placeholder, select {
+        color: #A0AEC0; /* Lighter placeholder text */
+    }
+    select option[value=""] {
+        color: #A0AEC0;
+    }
+    select {
+        color: #2D3748; /* Default color for selected option */
+    }
+     select:required:invalid {
+        color: #A0AEC0;
+    }
+
+
+    input:focus, select:focus {
+      border-color: #60A5FA; /* Accent blue on focus from index.css */
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2); /* Focus ring from index.css */
+      outline: none;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px; /* Increased gap for consistency */
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* Base button style from index.css inspiration */
+    .button-container button {
+      padding: 10px 20px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      color: white;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    .button-container button:active {
+        transform: translateY(1px);
+    }
+
+    .submit-btn { background-color: #005A9C; /* Primary blue */ }
+    .submit-btn:hover { background-color: #004C86; }
+    .submit-btn:active { background-color: #003D6B; }
+
+    .print-btn { background-color: #6C757D; /* Dark Gray */ }
+    .print-btn:hover { background-color: #5A6268; }
+    .print-btn:active { background-color: #495057; }
+
+    .add-btn { background-color: #1fcae4; /* Teal - distinct action color */ }
+    .add-btn:hover { background-color: #1ab8d0; }
+    .add-btn:active { background-color: #169dad; }
+
+
+    .print-preview { 
+      display: none; 
+      padding: 20px; /* Padding for screen view if ever shown */
+      background: white;
+    }
+
+    .print-preview table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      font-size: 11px; /* Maintained small for print density */
+    }
+
+    .print-preview th,
+    .print-preview td {
+      border: 1px solid #CBD5E0; /* Softer table borders from index.css */
+      padding: 8px 6px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .print-preview th {
+      background-color: #EBF4FF; /* Light blue header from index.css */
+      font-weight: 600;
+      font-size: 10px; /* Maintained small for print density */
+      color: #005A9C; /* Primary blue text */
+    }
+
+    .print-preview .experience-header {
+      background-color: #EBF4FF; /* Light blue for this specific header cell */
+      font-weight: bold;
+      text-align: center;
+    }
+
+    #progressBar {
+      width: 100%;
+      height: 8px; /* Slightly thicker */
+      background-color: #E2E8F0; /* Softer gray background from index.css */
+      border-radius: 50px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    #progressBar div {
+      height: 100%;
+      width: 0%;
+      transition: width 0.4s ease;
+      /* background-color is set dynamically by JS */
+      border-radius: 50px;
+    }
+
+    .progress-info {
+      text-align: center;
+      font-size: 12px;
+      color: #4A5568; /* Medium gray text from index.css */
+      margin-bottom: 10px;
+    }
+    
+    .other-bwts-container, .other-ecdis-container {
+        padding: 10px;
+        margin-top: 5px;
+        background-color: #e9ecef; /* Slightly different background for "other" section */
+        border-radius: 4px;
+    }
+
+    @media print {
+      @page { 
+        size: landscape; 
+        margin: 0.5in;
+      }
+      body { 
+        font-size: 10px !important; /* Ensure print font size */
+        margin: 0;
+        padding: 0;
+        background-color: #fff !important; /* Ensure white background for printing */
+        color: #000 !important; /* Ensure black text for printing */
+      }
+      .form-container {
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+      input, select { font-size: 8px !important; padding: 2px !important; border: 1px solid #666 !important; }
+      fieldset.experience-block, .button-container, .add-btn, form#seaExperienceForm, h1.form-title, #progressBar, .progress-info { 
+        display: none !important; 
+      }
+      .print-preview { 
+        display: block !important;
+        padding: 0 !important;
+      }
+      .print-preview table {
+        font-size: 9px !important; /* Adjusted for landscape A4 */
+      }
+      .print-preview th, .print-preview td {
+         padding: 4px 3px !important;
+         border: 1px solid #333 !important; /* Harder border for print clarity */
+      }
+       .print-preview th {
+        font-size: 8px !important;
+        background-color: #f0f0f0 !important; /* Simple gray for print */
+        color: #000 !important;
+      }
+    }
+
+    /* Responsive adjustments for this specific form */
+    @media screen and (max-width: 768px) {
+        #seaExperienceForm {
+            padding: 15px;
+        }
+        .form-row {
+             gap: 10px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+      #seaExperienceForm { padding: 10px; }
+      input, select { font-size: 12px; padding: 6px 8px; } /* Slightly larger for mobile */
+      .button-container button { padding: 8px 12px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1 class="form-title">SEA EXPERIENCE FORM</h1>
+    <div style="padding: 0 25px;"> <!-- Added padding to match .content for elements outside the form -->
+        <div id="progressBar"><div></div></div>
+        <div class="progress-info" id="progressInfo">0% Complete (0 of 0 fields filled)</div>
+    </div>
+    
+    <form id="seaExperienceForm">
+      <div id="experienceContainer"></div>
+
+      <template id="experienceTemplate">
+        <fieldset class="experience-block">
+          <legend>Experience</legend>
+          <div class="form-row">
+            <label>Rank
+              <select name="rank[]" required>
+                <option value="" disabled selected hidden>Select Rank</option>
+                <option value="Master">Master</option>
+                <option value="Chief Mate">Chief Mate</option>
+                <option value="2nd Mate">2nd Mate</option>
+                <option value="3rd Mate">3rd Mate</option>
+                <option value="Deck Cadet">Deck Cadet</option>
+                <option value="Bosun">Bosun</option>
+                <option value="Able Seaman (AB)">Able Seaman (AB)</option>
+                <option value="Ordinary Seaman (OS)">Ordinary Seaman (OS)</option>
+                <option value="Chief Engineer">Chief Engineer</option>
+                <option value="2nd Engineer">2nd Engineer</option>
+                <option value="3rd Engineer">3rd Engineer</option>
+                <option value="4th Engineer">4th Engineer</option>
+                <option value="Engine Cadet">Engine Cadet</option>
+                <option value="Oiler No. 1">Oiler No. 1</option>
+                <option value="Oiler">Oiler</option>
+                <option value="Wiper">Wiper</option>
+                <option value="Electrician">Electrician</option>
+                <option value="ETO">ETO</option>
+                <option value="Chief Cook">Chief Cook</option>
+                <option value="2nd Cook">2nd Cook</option>
+                <option value="Messman">Messman</option>
+                <option value="Steward">Steward</option>
+              </select>
+            </label>
+            <label>Vessel Name<input type="text" name="vesselName[]" placeholder="Enter Vessel Name"></label>
+          </div>
+          <div class="form-row">
+            <label>Vessel Registry<input type="text" placeholder="Enter Vessel Registry" name="registry[]"></label>
+            <label>Year Built<input type="number" placeholder="Enter Year Built" name="yearBuilt[]" min="1900" max="2100"></label>
+          </div>
+          <div class="form-row">
+            <label>Ship Type
+              <select name="shipType[]" required>
+                <option value="" disabled selected hidden>Enter Ship Type</option>
+                <option value="Barge Carrier">Barge Carrier</option>
+                <option value="Bulk Carrier">Bulk Carrier</option>
+                <option value="Chemical Tanker">Chemical Tanker</option>
+                <option value="Container Ship">Container Ship</option>
+                <option value="Crude Carrier">Crude Carrier</option>
+                <option value="General Cargo">General Cargo</option>
+                <option value="Heavy Lift">Heavy Lift</option>
+                <option value="LNG Carrier">LNG Carrier</option>
+                <option value="LPG Carrier">LPG Carrier</option>
+                <option value="Livestock Carrier">Livestock Carrier</option>
+                <option value="Multipurpose">Multipurpose</option>
+                <option value="Oil Tanker">Oil Tanker</option>
+                <option value="Product Tanker">Product Tanker</option>
+                <option value="Reefer">Reefer</option>
+                <option value="RORO">RORO</option>
+                <option value="Vehicle Carrier">Vehicle Carrier</option>
+              </select>
+            </label>
+            <label>Gross Tonnage<input type="text" placeholder="Enter Gross Tonnage" name="gt[]"></label>
+          </div>
+          <div class="form-row">
+            <label>Main Engine Type<input type="text" placeholder="Enter Main Engine Type" name="mainEngine[]"></label>
+            <label>Horsepower or kW<input type="text" name="hpkw[]" placeholder="Enter Horsepower or kW"></label>
+          </div>
+          <label>Manning or Crewing Agency<input type="text" name="agency[]" placeholder="Enter Manning or Crewing Agency"></label>
+
+          <label>Ballast Water Treatment System
+            <select name="bwts[]" onchange="toggleOtherInput(this, 'bwts')">
+              <option value="">Select BWTS Type (or N/A)</option>
+              <option value="Panasia GloEn-Patrol™">Panasia GloEn-Patrol™ 2010</option>
+              <option value="Techcross Electro-Cleen™ System (ECS-2600B)">Techcross Electro-Cleen™ System (ECS-2600B) 2006</option>
+              <option value="JFE BallastAce®">JFE BallastAce® 2010</option>
+              <option value="Kuraray MICROFADE">Kuraray MICROFADE 2012</option>
+              <option value="Miura HK Series">Miura HK Series (HK-300UC, HK-900C, HK-900CX2) 2014</option>
+              <option value="Alfa Laval PureBallast 3.2">Alfa Laval PureBallast 3.2 2015</option>
+              <option value="Furimar SP200">Furimar SP200</option>
+              <option value="N/A">N/A</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <div class="other-bwts-container" style="display:none; margin-top:10px;">
+            <label>Specify Other BWTS Type<input type="text" name="otherBwts[]" placeholder="Type other BWTS name"></label>
+          </div>
+
+          <label>NOx Tier III Equipment<input type="text" name="nox[]" placeholder="Enter NOx Tier III Equipment (or N/A)"></label>
+
+          <label>ECDIS Type/Model
+            <select name="ecdis[]" onchange="toggleOtherInput(this, 'ecdis')">
+              <option value="">Select ECDIS Model (or N/A)</option>
+              <option value="JRC JAN-7201">JRC JAN-7201 (2014)</option>
+              <option value="JRC JAN-9201">JRC JAN-9201 (2014)</option>
+              <option value="FURUNO FMD-3200">FURUNO FMD-3200 (2012)</option>
+              <option value="FURUNO FMD-3300">FURUNO FMD-3300 (2012)</option>
+              <option value="N/A">N/A</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <div class="other-ecdis-container" style="display:none; margin-top:10px;">
+            <label>Specify Other ECDIS Model<input type="text" name="otherEcdis[]" placeholder="Type other ECDIS model"></label>
+          </div>
+          <div class="form-row">
+            <label>Reason for Leaving<input type="text" name="reason[]" placeholder="Enter Reason for Leaving"></label>
+            <label>Trading Route<input type="text" name="tradeRoute[]" placeholder="Enter Trading Route (e.g., Asia-Europe)"></label>
+          </div>
+          <div class="form-row">
+            <label>From<input type="date" name="fromDate[]" class="from-date"></label>
+            <label>To<input type="date" name="toDate[]" class="to-date"></label>
+          </div>
+          <label>Total Service Duration:<span class="duration-display" style="font-weight: normal; color: #2D3748; margin-left: 5px;">-</span></label>
+        </fieldset>
+      </template>
+
+      <button type="button" class="add-btn" onclick="addExperience()">+ Add Another Experience</button>
+      <div class="button-container">
+        <button type="button" class="print-btn" onclick="generateCompactPreview()">Preview & Print Summary</button>
+        <button type="submit" class="submit-btn">Submit & Email</button>
+      </div>
+    </form>
+
+    <div id="printPreview" class="print-preview"></div>
+  </div> <!-- end of .form-container -->
+
+  <script>
+    function updateProgress() {
+      const blocks = document.querySelectorAll('.experience-block');
+      let total = 0;
+      let filled = 0;
+
+      blocks.forEach(block => {
+        const fields = block.querySelectorAll('input:not([name="otherBwts[]"]):not([name="otherEcdis[]"]), select'); // Exclude initially hidden "other" inputs from total count unless visible
+        fields.forEach(field => {
+          if (field.offsetParent !== null) { // Check if field is visible
+            total++;
+            if (field.type === 'checkbox' || field.type === 'radio') {
+              if (field.checked) filled++;
+            } else if (field.value && field.value.trim() !== '') {
+              filled++;
+            }
+          }
+        });
+         // Specifically check visible "other" inputs
+        const otherBwtsInput = block.querySelector('input[name="otherBwts[]"]');
+        if (otherBwtsInput && otherBwtsInput.offsetParent !== null) {
+            total++;
+            if (otherBwtsInput.value && otherBwtsInput.value.trim() !== '') filled++;
+        }
+        const otherEcdisInput = block.querySelector('input[name="otherEcdis[]"]');
+        if (otherEcdisInput && otherEcdisInput.offsetParent !== null) {
+            total++;
+            if (otherEcdisInput.value && otherEcdisInput.value.trim() !== '') filled++;
+        }
+
+      });
+      
+
+      const percent = total > 0 ? Math.floor((filled / total) * 100) : 0;
+      const bar = document.querySelector('#progressBar div');
+      const info = document.getElementById('progressInfo');
+      
+      if (bar) bar.style.width = percent + '%';
+      if (info) info.textContent = `${percent}% Complete (${filled} of ${total} fields filled)`;
+
+      // Color coding for progress bar
+      if (bar) {
+        if (percent < 40) {
+            bar.style.backgroundColor = '#dc3545'; /* Red */
+        } else if (percent < 70) {
+            bar.style.backgroundColor = '#ffc107'; /* Yellow */
+        } else {
+            bar.style.backgroundColor = '#28a745'; /* Green */
+        }
+      }
+    }
+
+    function toggleOtherInput(selectElement, type) {
+      const block = selectElement.closest('.experience-block');
+      const otherContainer = block.querySelector(`.other-${type}-container`);
+      const otherInput = otherContainer.querySelector('input');
+      
+      if (selectElement.value === "Other") {
+        otherContainer.style.display = 'block';
+        otherInput.required = true; 
+      } else {
+        otherContainer.style.display = 'none';
+        if (otherInput) {
+            otherInput.value = ''; // Clear the "other" input when hiding
+            otherInput.required = false;
+        }
+      }
+      updateProgress(); // Update progress after toggling
+    }
+
+    function addExperience() {
+      const container = document.getElementById('experienceContainer');
+      const template = document.getElementById('experienceTemplate').content.cloneNode(true);
+      const count = container.querySelectorAll('.experience-block').length + 1;
+      template.querySelector('legend').textContent = `Experience #${count}`;
+      container.appendChild(template);
+
+      // Re-attach event listeners for date inputs in the new block
+      const newBlock = container.lastElementChild;
+      newBlock.querySelectorAll('.from-date, .to-date').forEach(dateInput => {
+        dateInput.addEventListener('change', updateDurationDisplay);
+      });
+      // Re-attach event listeners for select elements with "Other" option
+      newBlock.querySelectorAll('select[name="bwts[]"], select[name="ecdis[]"]').forEach(selectElement => {
+        const type = selectElement.name.includes('bwts') ? 'bwts' : 'ecdis';
+        selectElement.onchange = () => toggleOtherInput(selectElement, type);
+      });
+
+      updateProgress();
+    }
+
+    function generateCompactPreview() {
+      const container = document.getElementById('printPreview');
+      const blocks = document.querySelectorAll('.experience-block');
+      
+      let tableHTML = `
+        <h2 style="text-align:center; margin-bottom: 20px; font-size: 14px; color: #000;">SEA EXPERIENCE SUMMARY</h2>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 3%;">#</th>
+              <th style="width: 8%;">Rank</th>
+              <th style="width: 12%;">Vessel Name</th>
+              <th style="width: 6%;">Registry</th>
+              <th style="width: 5%;">Year Built</th>
+              <th style="width: 10%;">Ship Type</th>
+              <th style="width: 6%;">GT</th>
+              <th style="width: 9%;">Main Engine</th>
+              <th style="width: 6%;">HP/kW</th>
+              <th style="width: 9%;">Agency</th>
+              <th style="width: 7%;">BWTS</th>
+              <th style="width: 7%;">NOx Eq.</th>
+              <th style="width: 7%;">ECDIS</th>
+              <th style="width: 10%;">Reason for Leaving</th>
+              <th style="width: 10%;">Trading Route</th>
+              <th style="width: 6%;">From</th>
+              <th style="width: 6%;">To</th>
+              <th style="width: 7%;">Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+      
+      let grandTotalDays = 0;
+      
+      blocks.forEach((block, index) => {
+        const getData = (selector, isDate = false) => {
+          const element = block.querySelector(selector);
+          let value = element ? element.value.trim() : '';
+          if (isDate && value) {
+            // Format date as MM/DD/YYYY for display
+            try {
+                const d = new Date(value);
+                // Check if date is valid, if not, it might be already in a different format or invalid
+                if (!isNaN(d.getTime())) {
+                     // Adjust for timezone offset to prevent date shifting
+                    const adjustedDate = new Date(d.valueOf() + d.getTimezoneOffset() * 60 * 1000);
+                    return `${String(adjustedDate.getMonth() + 1).padStart(2, '0')}/${String(adjustedDate.getDate()).padStart(2, '0')}/${adjustedDate.getFullYear()}`;
+                }
+            } catch (e) { /* ignore error, return original value */ }
+          }
+          return value || '-';
+        };
+        
+        const fromDateStr = getData('.from-date', true);
+        const toDateStr = getData('.to-date', true);
+        const fromDateVal = block.querySelector('.from-date').value;
+        const toDateVal = block.querySelector('.to-date').value;
+
+        let duration = '-';
+        let currentExperienceDays = 0;
+
+        if (fromDateVal && toDateVal) {
+          const from = new Date(fromDateVal);
+          const to = new Date(toDateVal);
+          if (!isNaN(from) && !isNaN(to) && to >= from) {
+            currentExperienceDays = Math.ceil((to - from) / (1000 * 60 * 60 * 24)) +1; // Inclusive of start and end date
+            grandTotalDays += currentExperienceDays;
+            
+            let years = 0, months = 0, days = currentExperienceDays;
+            if (days >= 365) {
+                years = Math.floor(days / 365);
+                days %= 365;
+            }
+            if (days >= 30) { // Approximate month as 30 days for this display
+                months = Math.floor(days / 30);
+                days %= 30;
+            }
+            duration = '';
+            if (years > 0) duration += `${years}y `;
+            if (months > 0) duration += `${months}m `;
+            if (days > 0 || duration === '') duration += `${days}d`;
+
+
+          }
+        }
+        
+        let bwts = getData('select[name="bwts[]"]');
+        if (bwts === 'Other') {
+          const otherBwts = getData('input[name="otherBwts[]"]');
+          bwts = otherBwts !== '-' ? `Other: ${otherBwts}` : 'Other';
+        }
+        
+        let ecdis = getData('select[name="ecdis[]"]');
+        if (ecdis === 'Other') {
+          const otherEcdis = getData('input[name="otherEcdis[]"]');
+          ecdis = otherEcdis !== '-' ? `Other: ${otherEcdis}` : 'Other';
+        }
+        
+        tableHTML += `
+          <tr>
+            <td class="experience-header" style="background-color: #f8f9fa; color: #333;">${index + 1}</td>
+            <td>${getData('select[name="rank[]"]')}</td>
+            <td>${getData('input[name="vesselName[]"]')}</td>
+            <td>${getData('input[name="registry[]"]')}</td>
+            <td>${getData('input[name="yearBuilt[]"]')}</td>
+            <td>${getData('select[name="shipType[]"]')}</td>
+            <td>${getData('input[name="gt[]"]')}</td>
+            <td>${getData('input[name="mainEngine[]"]')}</td>
+            <td>${getData('input[name="hpkw[]"]')}</td>
+            <td>${getData('input[name="agency[]"]')}</td>
+            <td>${bwts}</td>
+            <td>${getData('input[name="nox[]"]')}</td>
+            <td>${ecdis}</td>
+            <td>${getData('input[name="reason[]"]')}</td>
+            <td>${getData('input[name="tradeRoute[]"]')}</td>
+            <td>${fromDateStr}</td>
+            <td>${toDateStr}</td>
+            <td>${duration}</td>
+          </tr>
+        `;
+      });
+      
+      let totalYears = 0, totalMonths = 0, remainingDays = grandTotalDays;
+      if (remainingDays >= 365) {
+          totalYears = Math.floor(remainingDays / 365);
+          remainingDays %= 365;
+      }
+      if (remainingDays >= 30) {
+          totalMonths = Math.floor(remainingDays / 30);
+          remainingDays %= 30;
+      }
+      
+      let totalSeaTime = '';
+      if (totalYears > 0) totalSeaTime += `${totalYears} year${totalYears > 1 ? 's' : ''} `;
+      if (totalMonths > 0) totalSeaTime += `${totalMonths} month${totalMonths > 1 ? 's' : ''} `;
+      if (remainingDays > 0 || totalSeaTime === '') totalSeaTime += `${remainingDays} day${remainingDays > 1 ? 's' : ''}`;
+      if (!totalSeaTime) totalSeaTime = '0 days';
+      
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      const timeStr = now.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit' });
+      
+      tableHTML += `
+          </tbody>
+        </table>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; font-size: 9px; color: #333;">
+          <div style="color: #555;">
+            Generated on: ${dateStr} at ${timeStr}<br>
+            Total Experiences: ${blocks.length} | Total Sea Time: <strong style="color: #000;">${totalSeaTime.trim()}</strong>
+          </div>
+          <div style="color: #777; font-style: italic; text-align: right;">
+            Applicant's Signature: _________________________<br>
+            Date: _________________________
+          </div>
+        </div>
+      `;
+      
+      container.innerHTML = tableHTML;
+      window.print();
+    }
+    
+    function updateDurationDisplay(event) {
+        const block = event.target.closest('.experience-block');
+        const fromInput = block.querySelector('.from-date');
+        const toInput = block.querySelector('.to-date');
+        const display = block.querySelector('.duration-display');
+
+        if (fromInput.value && toInput.value) {
+            const fromDate = new Date(fromInput.value);
+            const toDate = new Date(toInput.value);
+
+            if (!isNaN(fromDate) && !isNaN(toDate) && toDate >= fromDate) {
+                // Calculate difference in days (inclusive)
+                let diffDays = Math.ceil((toDate - fromDate) / (1000 * 60 * 60 * 24)) + 1;
+                
+                let years = 0, months = 0, days = diffDays;
+
+                if (days >= 365) { // Use 365 for year approximation
+                    years = Math.floor(days / 365);
+                    days %= 365;
+                }
+                if (days >= 30) { // Use 30 for month approximation
+                    months = Math.floor(days / 30);
+                    days %= 30;
+                }
+                
+                let durationStr = '';
+                if (years > 0) durationStr += `${years}y `;
+                if (months > 0) durationStr += `${months}m `;
+                if (days > 0 || durationStr === '') durationStr += `${days}d`;
+                
+                display.textContent = durationStr.trim();
+            } else {
+                display.textContent = '- (Invalid Dates)';
+            }
+        } else {
+            display.textContent = '-';
+        }
+    }
+
+
+    // Initial setup
+    document.addEventListener('DOMContentLoaded', () => {
+      addExperience(); // Add one experience block by default
+      // Event listeners for input changes to update progress are now added globally or within addExperience
+
+      // Attach initial event listeners for the first block's date inputs
+      document.querySelectorAll('.from-date, .to-date').forEach(dateInput => {
+        dateInput.addEventListener('change', updateDurationDisplay);
+      });
+       // Attach initial event listeners for select elements with "Other" option
+      document.querySelectorAll('select[name="bwts[]"], select[name="ecdis[]"]').forEach(selectElement => {
+        const type = selectElement.name.includes('bwts') ? 'bwts' : 'ecdis';
+        selectElement.onchange = () => toggleOtherInput(selectElement, type);
+      });
+    });
+
+    // Global listeners for progress update (more robust)
+    document.addEventListener('input', function(event) {
+        if (event.target.closest('.experience-block')) {
+            updateProgress();
+        }
+    });
+    document.addEventListener('change', function(event) {
+         if (event.target.closest('.experience-block')) {
+            updateProgress();
+        }
+    });
+
+
+    document.getElementById('seaExperienceForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Basic validation: check if there's at least one experience block
+        const experienceBlocks = document.querySelectorAll('#experienceContainer .experience-block');
+        if (experienceBlocks.length === 0) {
+            alert('Please add at least one sea experience.');
+            return;
+        }
+
+        // Check for required fields within each block
+        let allValid = true;
+        experienceBlocks.forEach((block, index) => {
+            const rank = block.querySelector('select[name="rank[]"]');
+            const shipType = block.querySelector('select[name="shipType[]"]');
+            if (!rank.value) {
+                alert(`Rank is required for Experience #${index + 1}.`);
+                rank.focus();
+                allValid = false;
+                return;
+            }
+            if (!shipType.value) {
+                alert(`Ship Type is required for Experience #${index + 1}.`);
+                shipType.focus();
+                allValid = false;
+                return;
+            }
+            // Add more required field checks if necessary
+        });
+
+        if (!allValid) return;
+
+
+      const formData = new FormData(this);
+      // Example: Convert FormData to a simple object for JSON stringification or further processing
+      const data = {};
+      for (let [key, value] of formData.entries()) {
+        // Handling multiple fields with the same name (e.g., rank[])
+        const cleanKey = key.replace('[]', '');
+        if (!data[cleanKey]) {
+          data[cleanKey] = value; // If only one, store as single value
+        } else if (Array.isArray(data[cleanKey])) {
+          data[cleanKey].push(value); // If already an array, push
+        } else {
+          data[cleanKey] = [data[cleanKey], value]; // Convert to array and add new value
+        }
+      }
+      console.log('Form data for submission:', data);
+      // Replace with actual submission logic (e.g., fetch to a backend)
+      alert('Form data prepared for submission. See console for details. Implement actual submission logic here.');
+      
+      // Mock submission fetch call (replace with your actual endpoint)
+      /*
+      fetch('/submit-sea-experience', { // Replace with your actual API endpoint
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data) // Sending the structured data object
+      })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`Server error: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(response => {
+        alert(response.message || 'Form submitted successfully!');
+        // Optionally reset form or navigate
+      })
+      .catch(err => {
+        console.error('Submission error:', err);
+        alert('Submission error: ' + err.message);
+      });
+      */
+    });
+  </script>
+</body>
+</html>
