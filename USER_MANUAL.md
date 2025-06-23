@@ -29,7 +29,7 @@ This web application allows applicants to fill out a multi‑page form for Cebu 
 
 ## 4. Submission
 
-- Press **Submit & Email** to trigger the submission logic (currently a placeholder).
+- Press **Submit & Email** to send the form data to `submit_application.php`. This script uses **PHPMailer** to email your application via SMTP.
 - Ensure you review your information using the print preview before submitting.
 
 ## 5. Clearing Stored Data
