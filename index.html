@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form - Cebu Ace-Maritime International Inc.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Flatpickr CSS removed -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'cami-blue': {
+                light: '#EBF4FF',
+                DEFAULT: '#005A9C',
+                dark: '#004C86',
+              },
+              'cami-text': {
+                DEFAULT: '#2D3748',
+                light: '#4A5568',
+                lighter: '#718096',
+              },
+              'cami-gray': {
+                DEFAULT: '#A0AEC0',
+                light: '#E2E8F0',
+                medium: '#CBD5E0',
+                dark: '#F7FAFC', // Page background
+                section: '#F9FAFB', // Section background
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="index.css"> 
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #A0AEC0;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+        input[type="checkbox"] {
+            accent-color: #005A9C;
+        }
+        /* Style for native date picker icon to be somewhat consistent */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.6;
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-cami-gray-dark font-sans text-cami-text p-2 md:p-5">
+    <div class="max-w-4xl mx-auto bg-white border border-cami-gray-medium rounded-lg shadow-lg overflow-hidden">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row items-center p-4 md:p-5 border-b border-cami-gray-light">
+            <div class="w-16 h-16 md:w-20 md:h-20 border border-cami-gray-medium rounded flex items-center justify-center shrink-0 bg-cami-blue-light mb-3 md:mb-0 md:mr-5">
+                <div class="text-center text-xs font-semibold text-cami-blue">CAMI<br>Logo</div>
+            </div>
+            <div class="flex-1 text-center mb-3 md:mb-0">
+                <div class="font-bold text-lg md:text-xl text-cami-blue mb-1">Cebu Ace-Maritime International Inc.</div>
+                <div class="text-xs text-cami-text-light leading-tight">
+                    2nd Floor ACE Bldg., N. Escario St. Lahug, Cebu City 6000<br>
+                    Tel: (032) 233-8568 / (032) 505-1879<br>
+                    email: cam@gmail.com
+                </div>
+            </div>
+            <div class="text-xs text-cami-text-light md:text-right min-w-[130px]">
+                CAMI OPS - 02-012<br>
+                Revision: 00<br>
+                Date: 04 July 2022<br>
+                <br>
+                <strong class="text-cami-text">ClassNK</strong><br>
+                ISO 9001:2015
+            </div>
+        </div>
+
+        <!-- Form Title -->
+        <div class="text-center font-bold text-xl md:text-2xl text-cami-blue p-4 border-b border-cami-gray-light">CAMII APPLICATION FORM</div>
+
+        <!-- Date and Photo Section -->
+        <div class="p-4 md:p-5 flex flex-col md:flex-row justify-between items-start md:items-center border-b border-cami-gray-light gap-4">
+            <div class="flex flex-col gap-3">
+                <div class="flex items-center">
+                    <strong class="font-semibold text-cami-text mr-2 text-sm">Date Applied:</strong> 
+                    <span id="dateAppliedDisplay" class="font-medium text-cami-text-light text-sm"></span>
+                </div>
+                <div class="flex gap-5 items-center mt-2">
+                    <label class="text-base text-cami-text flex items-center cursor-pointer">
+                        <input type="checkbox" name="crewType" value="new" class="mr-2 h-5 w-5 text-cami-blue border-cami-gray-medium rounded focus:ring-cami-blue"> New Crew
+                    </label>
+                    <label class="text-base text-cami-text flex items-center cursor-pointer">
+                        <input type="checkbox" name="crewType" value="ex" class="mr-2 h-5 w-5 text-cami-blue border-cami-gray-medium rounded focus:ring-cami-blue"> Ex-Crew
+                    </label>
+                </div>
+                <div class="mt-1">
+                    <em class="text-xs text-cami-text-lighter">(Please fill out all items)</em>
+                </div>
+            </div>
+            <div id="photoSectionContainer" class="relative w-32 h-40 border-2 border-dashed border-cami-gray rounded flex items-center justify-center text-xs text-center p-2 text-cami-text-lighter bg-cami-gray-dark self-center md:self-auto cursor-pointer overflow-hidden">
+                <input type="file" id="photoUpload" name="photoUpload" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                <div id="photoPlaceholder" class="flex flex-col items-center justify-center">
+                    <span>COLORED PHOTO</span>
+                    <span>(Passport Size)</span>
+                </div>
+                <img id="photoPreview" src="#" alt="Photo Preview" class="hidden absolute inset-0 object-contain w-full h-full rounded">
+            </div>
+        </div>
+
+        <!-- Form Content -->
+        <div class="p-4 md:p-6">
+            <form id="applicationForm">
+                <div class="font-bold mt-1 mb-4 text-lg text-cami-blue border-b border-cami-gray-light pb-2 first:mt-0">1. PERSONAL INFORMATION:</div>
+                <div class="flex justify-end items-center gap-2 mb-4">
+                    <strong class="font-semibold text-sm text-cami-text">SRN:</strong> 
+                    <input type="text" name="srn" placeholder="Enter SRN" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue placeholder-cami-gray w-auto md:w-48">
+                </div>
+
+                <p class="font-semibold text-sm text-cami-text mb-1">1. FULL NAME:</p>
+                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="lastName" class="text-sm font-medium text-cami-text">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Last Name" required class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="firstName" class="text-sm font-medium text-cami-text">First Name:</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="First Name" required class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="middleName" class="text-sm font-medium text-cami-text">Middle Name:</label>
+                        <input type="text" id="middleName" name="middleName" placeholder="Middle Name" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1 md:flex-initial md:w-24">
+                        <label for="suffix" class="text-sm font-medium text-cami-text">Suffix:</label>
+                        <input type="text" id="suffix" name="suffix" placeholder="e.g. Jr." class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1 md:flex-initial md:w-36">
+                        <label for="gender" class="text-sm font-medium text-cami-text">Gender:</label>
+                        <select id="gender" name="gender" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray h-[38px]">
+                            <option value="" disabled selected>Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-3 items-end">
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="positionApplied" class="text-sm font-medium text-cami-text">2. POSITION APPLIED:</label>
+                        <select id="positionApplied" name="positionApplied" required class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                            <option value="" disabled selected>Select Position</option>
+                            <optgroup label="Deck Department (Bulk/Reefer)">
+                                <option value="Master">Master</option>
+                                <option value="Chief Officer">Chief Officer</option>
+                                <option value="2nd Officer">2nd Officer</option>
+                                <option value="3rd Officer">3rd Officer</option>
+                                <option value="Deck Cadet">Deck Cadet</option>
+                                <option value="Bosun">Bosun</option>
+                                <option value="Able Seaman (AB)">Able Seaman (AB)</option>
+                                <option value="Ordinary Seaman (OS)">Ordinary Seaman (OS)</option>
+                            </optgroup>
+                            <optgroup label="Engine Department (Bulk/Reefer)">
+                                <option value="Chief Engineer">Chief Engineer</option>
+                                <option value="2nd Engineer">2nd Engineer</option>
+                                <option value="3rd Engineer">3rd Engineer</option>
+                                <option value="4th Engineer">4th Engineer</option>
+                                <option value="Engine Cadet">Engine Cadet</option>
+                                <option value="Oiler No. 1">Oiler No. 1</option>
+                                <option value="Oiler">Oiler</option>
+                                <option value="Wiper">Wiper</option>
+                                <option value="Fitter">Fitter</option>
+                                <option value="Electrician">Electrician</option>
+                                <option value="ETO">ETO (Electro-Technical Officer)</option>
+                                <option value="Reefer Engineer/Technician">Reefer Engineer/Technician (Reefer)</option>
+                            </optgroup>
+                            <optgroup label="Catering Department (Bulk/Reefer)">
+                                <option value="Chief Cook">Chief Cook</option>
+                                <option value="Messman">Messman</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                     <div class="flex flex-col gap-1 md:max-w-[100px] flex-shrink-0">
+                        <label for="age" class="text-sm font-medium text-cami-text">AGE:</label>
+                        <span id="ageDisplay" class="text-sm p-2 rounded-md w-full min-h-[38px] flex items-center"></span>
+                         <input type="hidden" id="age" name="age">
+                    </div>
+                    <div class="flex flex-col gap-1 flex-grow md:w-2/5">
+                        <label for="dateAvailable" class="text-sm font-medium text-cami-text">DATE AVAILABLE TO JOIN:</label>
+                        <input type="date" id="dateAvailable" name="dateAvailable" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="permanentAddress" class="text-sm font-medium text-cami-text">3. PERMANENT ADDRESS:</label>
+                        <input type="text" id="permanentAddress" name="permanentAddress" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="telNo" class="text-sm font-medium text-cami-text">TEL. NO.:</label>
+                        <input type="text" id="telNo" name="telNo" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="cellNo" class="text-sm font-medium text-cami-text">CELL NO.:</label>
+                        <input type="text" id="cellNo" name="cellNo" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="socialContact" class="text-sm font-medium text-cami-text">Messenger/Viber/WhatsApp:</label>
+                        <input type="text" id="socialContact" name="socialContact" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="email" class="text-sm font-medium text-cami-text">Active & Latest Email Address:</label>
+                        <input type="email" id="email" name="email" placeholder="example@domain.com" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                </div>
+
+                <p class="font-semibold text-sm text-cami-text mb-1 mt-4">4. IDENTIFICATION NUMBERS:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-3 mb-3">
+                    <div class="flex flex-col gap-1">
+                        <label for="sssNo" class="text-sm font-medium text-cami-text">SSS NO.:</label>
+                        <input type="text" id="sssNo" name="sssNo" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="tinNo" class="text-sm font-medium text-cami-text">TIN NO.:</label>
+                        <input type="text" id="tinNo" name="tinNo" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="pagibigNo" class="text-sm font-medium text-cami-text">PAG-IBIG NO.:</label>
+                        <input type="text" id="pagibigNo" name="pagibigNo" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="philhealthNo" class="text-sm font-medium text-cami-text">PHILHEALTH NO.:</label>
+                        <input type="text" id="philhealthNo" name="philhealthNo" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                    <div class="flex flex-col gap-1 flex-grow md:max-w-[200px]">
+                        <label for="coverallSize" class="text-sm font-medium text-cami-text">COVER ALL SIZE:</label>
+                        <select id="coverallSize" name="coverallSize" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                            <option value="" disabled selected>Select Size</option>
+                            <option value="XS">XS</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
+                            <option value="XXXL">XXXL</option>
+                            <option value="Other">Other (Specify)</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-1 flex-grow md:max-w-[200px]">
+                        <label for="shoeSize" class="text-sm font-medium text-cami-text">SAFETY SHOES SIZE:</label>
+                         <select id="shoeSize" name="shoeSize" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                            <option value="" disabled selected>Select Size</option>
+                            <script>
+                                for (let i = 35; i <= 50; i++) {
+                                    document.write(`<option value="${i}">${i}</option>`);
+                                }
+                            </script>
+                             <option value="Other">Other (Specify)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-3 items-end">
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="dob" class="text-sm font-medium text-cami-text">5. DATE OF BIRTH:</label>
+                        <input type="date" id="dob" name="dob" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <!-- Age display moved to row with Position Applied -->
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="pob" class="text-sm font-medium text-cami-text">PLACE OF BIRTH:</label>
+                        <input type="text" id="pob" name="pob" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                    <div class="flex flex-col gap-1 flex-grow md:max-w-[120px]">
+                        <label for="height" class="text-sm font-medium text-cami-text">6. HEIGHT (cm):</label>
+                        <input type="text" id="height" name="height" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1 flex-grow md:max-w-[120px]">
+                        <label for="weight" class="text-sm font-medium text-cami-text">WEIGHT (kg):</label>
+                        <input type="text" id="weight" name="weight" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="maritalStatus" class="text-sm font-medium text-cami-text">MARITAL STATUS:</label>
+                        <select id="maritalStatus" name="maritalStatus" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                            <option value="" disabled selected>Select Status</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Widowed">Widowed</option>
+                            <option value="Separated">Separated</option>
+                            <option value="Divorced">Divorced</option>
+                            <option value="Other">Other</option>
+                        </select>
+                         <input type="text" id="otherMaritalStatus" name="otherMaritalStatus" placeholder="Specify other status" class="hidden mt-2 border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="wifeName" class="text-sm font-medium text-cami-text">7. NAME OF WIFE (if applicable):</label>
+                        <input type="text" id="wifeName" name="wifeName" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="wifeDob" class="text-sm font-medium text-cami-text">DATE OF BIRTH (Wife):</label>
+                        <input type="date" id="wifeDob" name="wifeDob" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="wifeContactNo" class="text-sm font-medium text-cami-text">8. WIFE CONTACT NO.:</label>
+                        <input type="text" id="wifeContactNo" name="wifeContactNo" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full md:max-w-xs placeholder-cami-gray">
+                    </div>
+                </div>
+                
+                <p class="font-semibold text-sm text-cami-text mb-2 mt-4">9. CHILDREN:</p>
+                <div id="childrenContainer" class="space-y-4">
+                    <!-- Children templates will be appended here -->
+                </div>
+                <button type="button" id="addChildButton" class="mt-2 text-sm bg-cami-blue-light hover:bg-cami-blue text-cami-blue hover:text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out">Add Child</button>
+
+                <template id="childTemplate">
+                    <div class="child-entry p-3 border border-cami-gray-light rounded-md bg-cami-gray-section/50 relative">
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <div class="flex flex-col gap-1 flex-grow">
+                                <label class="text-sm font-medium text-cami-text">Child's Name:</label>
+                                <input type="text" name="childName[]" placeholder="Full Name of Child" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                            </div>
+                            <div class="flex flex-col gap-1 flex-grow">
+                                <label class="text-sm font-medium text-cami-text">Child's Date of Birth:</label>
+                                <input type="date" name="childDob[]" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                            </div>
+                        </div>
+                        <button type="button" class="removeChildButton absolute top-2 right-2 text-red-500 hover:text-red-700 font-bold text-lg" title="Remove Child">&times;</button>
+                    </div>
+                </template>
+
+
+                <div class="my-5">
+                    <p class="text-sm font-semibold text-cami-text mb-2">
+                        10. EMERGENCY CONTACT PERSON:
+                    </p>
+                    <p class="text-xs text-cami-text-light mb-3">
+                        Provide name and contact details of your emergency contact person (spouse, parents, or close relatives).
+                    </p>
+
+                    <div class="border border-cami-gray-light rounded-md p-4 bg-cami-gray-section">
+                        <div class="text-base font-semibold mb-3 text-cami-blue">Person to Contact in case of Emergency:</div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th class="border border-cami-gray-medium p-2 text-sm text-left bg-cami-blue-light font-semibold text-cami-blue">Full Name:</th>
+                                        <th class="border border-cami-gray-medium p-2 text-sm text-left bg-cami-blue-light font-semibold text-cami-blue">Contact Details:</th>
+                                        <th class="border border-cami-gray-medium p-2 text-sm text-left bg-cami-blue-light font-semibold text-cami-blue">Relation:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-cami-gray-medium p-1 align-top">
+                                            <input type="text" name="emergencyFullName" placeholder="Full Name" class="w-full border border-cami-gray-medium bg-white text-xs p-1.5 rounded focus:ring-cami-blue focus:border-cami-blue placeholder-cami-gray">
+                                        </td>
+                                        <td class="border border-cami-gray-medium p-1 align-top">
+                                            <input type="text" name="emergencyContactDetails" placeholder="Phone or Email" class="w-full border border-cami-gray-medium bg-white text-xs p-1.5 rounded focus:ring-cami-blue focus:border-cami-blue placeholder-cami-gray">
+                                        </td>
+                                        <td class="border border-cami-gray-medium p-1 align-top">
+                                            <select name="emergencyRelation" id="emergencyRelation" class="w-full border border-cami-gray-medium bg-white text-xs p-1.5 rounded focus:ring-cami-blue focus:border-cami-blue placeholder-cami-gray">
+                                                <option value="" disabled selected>Select Relation</option>
+                                                <option value="Spouse">Spouse</option>
+                                                <option value="Parent">Parent</option>
+                                                <option value="Sibling">Sibling</option>
+                                                <option value="Child">Child</option>
+                                                <option value="Grandparent">Grandparent</option>
+                                                <option value="Aunt/Uncle">Aunt/Uncle</option>
+                                                <option value="Cousin">Cousin</option>
+                                                <option value="Friend">Friend</option>
+                                                <option value="Guardian">Guardian</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                            <input type="text" id="otherEmergencyRelation" name="otherEmergencyRelation" placeholder="Specify other relation" class="hidden mt-1 w-full border border-cami-gray-medium bg-white text-xs p-1.5 rounded focus:ring-cami-blue focus:border-cami-blue placeholder-cami-gray">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="border border-cami-gray-medium p-2 text-sm">
+                                            <strong class="block text-xs font-medium text-cami-text mb-1">ALLOTTEE NAME:</strong>
+                                            <input type="text" name="allotteeName" placeholder="Full Name of Allottee" class="w-full border border-cami-gray-medium bg-white text-xs p-1.5 rounded focus:ring-cami-blue focus:border-cami-blue placeholder-cami-gray">
+                                        </td>
+                                        <td class="border border-cami-gray-medium p-2 text-sm">
+                                            <strong class="block text-xs font-medium text-cami-text mb-1">ADDRESS:</strong>
+                                            <input type="text" name="allotteeAddress" placeholder="Address of Allottee" class="w-full border border-cami-gray-medium bg-white text-xs p-1.5 rounded focus:ring-cami-blue focus:border-cami-blue placeholder-cami-gray">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="beneficiaryName" class="text-sm font-medium text-cami-text">11. BENEFICIARY:</label>
+                        <input type="text" id="beneficiaryName" name="beneficiaryName" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="beneficiaryAddress" class="text-sm font-medium text-cami-text">ADDRESS:</label>
+                        <input type="text" id="beneficiaryAddress" name="beneficiaryAddress" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                </div>
+                
+                <p class="font-semibold text-sm text-cami-text mb-1 mt-4">12. NAME OF PARENTS (IF LIVING):</p>
+                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="motherName" class="text-sm font-medium text-cami-text">MOTHER:</label>
+                        <input type="text" id="motherName" name="motherName" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="fatherName" class="text-sm font-medium text-cami-text">FATHER:</label>
+                        <input type="text" id="fatherName" name="fatherName" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-3">
+                    <div class="flex flex-col gap-1 flex-grow">
+                        <label for="parentsContact" class="text-sm font-medium text-cami-text">13. PARENTS CONTACT #:</label>
+                        <input type="text" id="parentsContact" name="parentsContact" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full md:max-w-xs placeholder-cami-gray">
+                    </div>
+                </div>
+
+                <div class="border border-cami-gray-light rounded-md p-4 my-5 bg-cami-gray-section">
+                    <div class="text-center font-semibold mb-3 text-cami-blue">
+                        Person to Contact in your Previous Manning Company:
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="flex flex-col gap-1">
+                             <label for="prevManningName" class="text-sm font-medium text-cami-text">Name:</label>
+                             <input type="text" id="prevManningName" name="prevManningName" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                             <label for="prevManningDesignation" class="text-sm font-medium text-cami-text">Designation:</label>
+                             <input type="text" id="prevManningDesignation" name="prevManningDesignation" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                             <label for="prevManningContactDetails" class="text-sm font-medium text-cami-text">Contact Details:</label>
+                             <input type="text" id="prevManningContactDetails" name="prevManningContactDetails" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-cami-gray-light rounded-md p-4 my-5 bg-cami-gray-section">
+                    <div class="text-base font-semibold mb-3 text-cami-blue text-center">EDUCATIONAL ATTAINMENT</div>
+                    
+                    <p class="font-semibold text-sm text-cami-text mb-2">School (e.g. High School/Vocational):</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-3 mb-4 items-end">
+                        <div class="flex flex-col gap-1 md:col-span-1">
+                            <label for="schoolName" class="text-sm font-medium text-cami-text">NAME OF SCHOOL:</label>
+                            <input type="text" id="schoolName" name="schoolName" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                        </div>
+                        <div class="flex flex-col gap-1 md:col-span-1">
+                            <label class="text-sm font-medium text-cami-text">DATE PERIOD:</label>
+                            <div class="flex items-center gap-2">
+                                <input type="date" id="schoolDateFrom" name="schoolDateFrom" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue flex-1 min-w-0 placeholder-cami-gray">
+                                <span class="text-cami-text-light">-</span>
+                                <input type="date" id="schoolDateTo" name="schoolDateTo" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue flex-1 min-w-0 placeholder-cami-gray">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-1 md:col-span-1">
+                            <label for="schoolCourse" class="text-sm font-medium text-cami-text">COURSE/STRAND:</label>
+                            <input type="text" id="schoolCourse" name="schoolCourse" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                        </div>
+                    </div>
+
+                    <p class="font-semibold text-sm text-cami-text mb-2 mt-5">College:</p>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-3 mb-3 items-end">
+                        <div class="flex flex-col gap-1 md:col-span-1">
+                             <label for="collegeName" class="text-sm font-medium text-cami-text">NAME OF COLLEGE:</label>
+                             <input type="text" id="collegeName" name="collegeName" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                        </div>
+                        <div class="flex flex-col gap-1 md:col-span-1">
+                            <label class="text-sm font-medium text-cami-text">DATE PERIOD:</label>
+                             <div class="flex items-center gap-2">
+                                <input type="date" id="collegeDateFrom" name="collegeDateFrom" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue flex-1 min-w-0 placeholder-cami-gray">
+                                <span class="text-cami-text-light">-</span>
+                                <input type="date" id="collegeDateTo" name="collegeDateTo" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue flex-1 min-w-0 placeholder-cami-gray">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-1 md:col-span-1">
+                            <label for="collegeCourse" class="text-sm font-medium text-cami-text">COURSE:</label>
+                            <input type="text" id="collegeCourse" name="collegeCourse" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-8 mb-5">
+                     <button type="button" id="nextPageButton" class="bg-cami-blue hover:bg-cami-blue-dark text-white font-semibold py-2.5 px-6 rounded-md text-sm transition duration-150 ease-in-out">Next Page</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Flatpickr JS removed -->
+    <script type="module" src="index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
