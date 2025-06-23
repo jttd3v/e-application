@@ -31,7 +31,8 @@ application via SMTP. To enable this feature you need PHP 8+ and Composer
 installed locally.
 
 Run `composer install` in the project root to install PHPMailer and set the
-following environment variables for your SMTP server:
+following environment variables for your SMTP server (see
+[.env.example](.env.example) for a template):
 
 - `SMTP_HOST`
 - `SMTP_USER`
