@@ -1,14 +1,19 @@
 {
-  "name": "e-application-server",
-  "version": "1.0.0",
-  "description": "Simple server for e-application form",
-  "main": "server.js",
+  "name": "cameapp_v06_06_1138",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "nodemailer": "^6.9.9",
-    "pdfkit": "^0.15.1"
+
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
   }
 }

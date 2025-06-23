@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CAMII - SEA EXPERIENCE FORM</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+   <script>
+      tailwind.config = { // Minimal config to ensure Tailwind utility classes are available if needed
+        theme: {
+          extend: {
+            colors: {
+              'cami-blue': {
+                light: '#EBF4FF',
+                DEFAULT: '#005A9C',
+                dark: '#004C86',
+              }
+            }
+          }
+        }
+      }
+    </script>
+  <style>
+    /* Styles specific to camiip2.html, harmonized with index.css */
+
+    /* Body is styled by index.css */
+
+    /* H1 is styled by .form-title class from index.css */
+
+    /* Form container provides main padding, use .content style for internal form padding */
+    #seaExperienceForm {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px 25px; /* Matches .content padding from index.css */
+    }
+
+    fieldset.experience-block {
+      border: 1px solid #E2E8F0; /* Softer border from index.css sections */
+      padding: 15px;
+      border-radius: 6px; /* Consistent border-radius */
+      margin-bottom: 15px;
+      background-color: #F9FAFB; /* Slightly off-white background for sections */
+      position: relative;
+    }
+
+    legend {
+      font-weight: 600;
+      padding: 0 5px;
+      color: #005A9C; /* Primary blue from index.css */
+      font-size: 14px; /* Consistent with minor titles */
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 4px; /* Existing structure is fine */
+      font-size: 12px; /* Consistent label size from index.css */
+      font-weight: 600; /* Bolder labels from index.css */
+      color: #2D3748; /* Text color from index.css */
+      gap: 4px;
+    }
+
+    input, select {
+      padding: 8px 10px; /* Increased padding from index.css */
+      font-size: 13px; /* Input text size from index.css */
+      border: 1px solid #CBD5E0; /* Softer, full border from index.css */
+      border-radius: 4px; /* Rounded corners for inputs */
+      margin-top: 4px; /* Kept from original, or can be removed if label gap is enough */
+      background: #FFFFFF;
+      color: #2D3748;
+      width: 100%; /* Make inputs take full width of their group */
+      box-sizing: border-box; /* Ensure padding and border are included in width */
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    input::placeholder, select {
+        color: #A0AEC0; /* Lighter placeholder text */
+    }
+    select option[value=""] {
+        color: #A0AEC0;
+    }
+    select {
+        color: #2D3748; /* Default color for selected option */
+    }
+     select:required:invalid {
+        color: #A0AEC0;
+    }
+
+
+    input:focus, select:focus {
+      border-color: #60A5FA; /* Accent blue on focus from index.css */
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2); /* Focus ring from index.css */
+      outline: none;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px; /* Increased gap for consistency */
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between; /* Adjusted for more buttons */
+      align-items: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .button-container .main-actions {
+        display: flex;
+        gap: 10px;
+        margin-left: auto; /* Pushes main actions to the right */
+    }
+
+
+    /* Base button style for buttons in the container and addExperienceButton */
+    .button-container button, #addExperienceButton {
+      padding: 10px 24px; /* Aligned with index.html primary buttons (py-2.5 px-6 -> 10px 24px) */
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+      /* color is set by specific button classes or Tailwind */
+    }
+    /* Specific padding for addExperienceButton if Tailwind doesn't fully override or if it needs to be different */
+    #addExperienceButton { /* Tailwind classes py-2 px-4 are 8px 16px */
+         padding: 8px 16px; /* Explicitly set to match Tailwind if needed, or rely on Tailwind */
+    }
+
+    .button-container button:active, #addExperienceButton:active {
+        transform: translateY(1px);
+    }
+    
+    /* Add Experience Button Style is primarily handled by Tailwind classes in HTML */
+    /* #addExperienceButton specific CSS can be minimal or for overrides if Tailwind isn't enough */
+
+
+    .submit-btn { 
+        background-color: #005A9C; /* Primary blue (cami-blue) */ 
+        color: white;
+    }
+    .submit-btn:hover { background-color: #004C86; /* cami-blue-dark */ }
+    .submit-btn:active { background-color: #003D6B; }
+
+    .print-btn { 
+        background-color: #4A5568; /* Medium gray (cami-text-light) */ 
+        color: white;
+    }
+    .print-btn:hover { background-color: #2D3748; /* Darker gray (cami-text) */ }
+    .print-btn:active { background-color: #1A202C; }
+    
+    .back-btn { 
+        background-color: #E2E8F0; /* Light gray (cami-gray-light) */
+        color: #2D3748; /* Dark text (cami-text) */
+        border: 1px solid #CBD5E0; /* Medium gray border (cami-gray-medium) */
+    }
+    .back-btn:hover { 
+        background-color: #CBD5E0; /* Medium gray (cami-gray-medium) */ 
+        border-color: #A0AEC0; /* Darker border (cami-gray) */
+    }
+    .back-btn:active { 
+        background-color: #A0AEC0; /* Darker gray (cami-gray) */ 
+    }
+
+
+    .print-preview { 
+      display: none; 
+      padding: 20px; /* Padding for screen view if ever shown */
+      background: white;
+    }
+
+    .print-preview table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      font-size: 11px; /* Maintained small for print density */
+    }
+
+    .print-preview th,
+    .print-preview td {
+      border: 1px solid #CBD5E0; /* Softer table borders from index.css */
+      padding: 8px 6px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .print-preview th {
+      background-color: #EBF4FF; /* Light blue header from index.css */
+      font-weight: 600;
+      font-size: 10px; /* Maintained small for print density */
+      color: #005A9C; /* Primary blue text */
+    }
+
+    .print-preview .experience-header {
+      background-color: #EBF4FF; /* Light blue for this specific header cell */
+      font-weight: bold;
+      text-align: center;
+    }
+
+    #progressBar {
+      width: 100%;
+      height: 8px; /* Slightly thicker */
+      background-color: #E2E8F0; /* Softer gray background from index.css */
+      border-radius: 50px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    #progressBar div {
+      height: 100%;
+      width: 0%;
+      transition: width 0.4s ease;
+      /* background-color is set dynamically by JS */
+      border-radius: 50px;
+    }
+
+    .progress-info {
+      text-align: center;
+      font-size: 12px;
+      color: #4A5568; /* Medium gray text from index.css */
+      margin-bottom: 10px;
+    }
+    
+    .other-bwts-container, .other-ecdis-container {
+        padding: 10px;
+        margin-top: 5px;
+        background-color: #e9ecef; /* Slightly different background for "other" section */
+        border-radius: 4px;
+    }
+    .removeExperienceButton {
+        position: absolute;
+        top: 8px; /* Adjust to align with legend */
+        right: 10px;
+        color: #ef4444; /* Tailwind red-500 */
+        background: transparent;
+        border: none;
+        font-size: 1.5rem; /* Larger click target */
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+    }
+    .removeExperienceButton:hover {
+        color: #dc2626; /* Tailwind red-700 */
+    }
+
+
+    @media print {
+      @page { 
+        size: landscape; 
+        margin: 0.5in;
+      }
+      body { 
+        font-size: 10px !important; /* Ensure print font size */
+        margin: 0;
+        padding: 0;
+        background-color: #fff !important; /* Ensure white background for printing */
+        color: #000 !important; /* Ensure black text for printing */
+      }
+      .form-container {
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+      input, select { font-size: 8px !important; padding: 2px !important; border: 1px solid #666 !important; }
+      fieldset.experience-block, .button-container, #addExperienceButton, form#seaExperienceForm, h1.form-title, #progressBar, .progress-info, .removeExperienceButton { 
+        display: none !important; 
+      }
+      .print-preview { 
+        display: block !important;
+        padding: 0 !important;
+      }
+      .print-preview table {
+        font-size: 9px !important; /* Adjusted for landscape A4 */
+      }
+      .print-preview th, .print-preview td {
+         padding: 4px 3px !important;
+         border: 1px solid #333 !important; /* Harder border for print clarity */
+      }
+       .print-preview th {
+        font-size: 8px !important;
+        background-color: #f0f0f0 !important; /* Simple gray for print */
+        color: #000 !important;
+      }
+    }
+
+    /* Responsive adjustments for this specific form */
+    @media screen and (max-width: 768px) {
+        #seaExperienceForm {
+            padding: 15px;
+        }
+        .form-row {
+             gap: 10px;
+        }
+        .button-container {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .button-container .main-actions {
+            margin-left: 0;
+            flex-direction: column;
+            width: 100%;
+        }
+        .button-container button {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+      #seaExperienceForm { padding: 10px; }
+      input, select { font-size: 12px; padding: 6px 8px; } /* Slightly larger for mobile */
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1 class="form-title">SEA EXPERIENCE FORM</h1>
+    <div style="padding: 0 25px;"> <!-- Added padding to match .content for elements outside the form -->
+        <div id="progressBar"><div></div></div>
+        <div class="progress-info" id="progressInfo">0% Complete (0 of 0 fields filled)</div>
+    </div>
+    
+    <form id="seaExperienceForm">
+      <div id="experienceContainer"></div>
+
+      <template id="experienceTemplate">
+        <fieldset class="experience-block">
+          <legend>Experience</legend>
+          <button type="button" class="removeExperienceButton" title="Remove Experience">&times;</button>
+          <div class="form-row">
+            <label>Rank
+              <select name="rank" required>
+                <option value="" disabled selected hidden>Select Rank</option>
+                <option value="Master">Master</option>
+                <option value="Chief Mate">Chief Mate</option>
+                <option value="2nd Mate">2nd Mate</option>
+                <option value="3rd Mate">3rd Mate</option>
+                <option value="Deck Cadet">Deck Cadet</option>
+                <option value="Bosun">Bosun</option>
+                <option value="Able Seaman (AB)">Able Seaman (AB)</option>
+                <option value="Ordinary Seaman (OS)">Ordinary Seaman (OS)</option>
+                <option value="Chief Engineer">Chief Engineer</option>
+                <option value="2nd Engineer">2nd Engineer</option>
+                <option value="3rd Engineer">3rd Engineer</option>
+                <option value="4th Engineer">4th Engineer</option>
+                <option value="Engine Cadet">Engine Cadet</option>
+                <option value="Oiler No. 1">Oiler No. 1</option>
+                <option value="Oiler">Oiler</option>
+                <option value="Wiper">Wiper</option>
+                <option value="Electrician">Electrician</option>
+                <option value="ETO">ETO</option>
+                <option value="Chief Cook">Chief Cook</option>
+                <option value="2nd Cook">2nd Cook</option>
+                <option value="Messman">Messman</option>
+                <option value="Steward">Steward</option>
+              </select>
+            </label>
+            <label>Vessel Name<input type="text" name="vesselName" placeholder="Enter Vessel Name"></label>
+          </div>
+          <div class="form-row">
+            <label>Vessel Registry<input type="text" placeholder="Enter Vessel Registry" name="registry"></label>
+            <label>Year Built<input type="number" placeholder="Enter Year Built" name="yearBuilt" min="1900" max="2100"></label>
+          </div>
+          <div class="form-row">
+            <label>Ship Type
+              <select name="shipType" required>
+                <option value="" disabled selected hidden>Enter Ship Type</option>
+                <option value="Barge Carrier">Barge Carrier</option>
+                <option value="Bulk Carrier">Bulk Carrier</option>
+                <option value="Chemical Tanker">Chemical Tanker</option>
+                <option value="Container Ship">Container Ship</option>
+                <option value="Crude Carrier">Crude Carrier</option>
+                <option value="General Cargo">General Cargo</option>
+                <option value="Heavy Lift">Heavy Lift</option>
+                <option value="LNG Carrier">LNG Carrier</option>
+                <option value="LPG Carrier">LPG Carrier</option>
+                <option value="Livestock Carrier">Livestock Carrier</option>
+                <option value="Multipurpose">Multipurpose</option>
+                <option value="Oil Tanker">Oil Tanker</option>
+                <option value="Product Tanker">Product Tanker</option>
+                <option value="Reefer">Reefer</option>
+                <option value="RORO">RORO</option>
+                <option value="Vehicle Carrier">Vehicle Carrier</option>
+              </select>
+            </label>
+            <label>Gross Tonnage<input type="text" placeholder="Enter Gross Tonnage" name="gt"></label>
+          </div>
+          <div class="form-row">
+            <label>Main Engine Type<input type="text" placeholder="Enter Main Engine Type" name="mainEngine"></label>
+            <label>Horsepower or kW<input type="text" name="hpkw" placeholder="Enter Horsepower or kW"></label>
+          </div>
+          <label>Manning or Crewing Agency<input type="text" name="agency" placeholder="Enter Manning or Crewing Agency"></label>
+
+          <label>Ballast Water Treatment System
+            <select name="bwts" onchange="toggleOtherInput(this, 'bwts')">
+              <option value="">Select BWTS Type (or N/A)</option>
+              <option value="Panasia GloEn-Patrol™">Panasia GloEn-Patrol™ 2010</option>
+              <option value="Techcross Electro-Cleen™ System (ECS-2600B)">Techcross Electro-Cleen™ System (ECS-2600B) 2006</option>
+              <option value="JFE BallastAce®">JFE BallastAce® 2010</option>
+              <option value="Kuraray MICROFADE">Kuraray MICROFADE 2012</option>
+              <option value="Miura HK Series">Miura HK Series (HK-300UC, HK-900C, HK-900CX2) 2014</option>
+              <option value="Alfa Laval PureBallast 3.2">Alfa Laval PureBallast 3.2 2015</option>
+              <option value="Furimar SP200">Furimar SP200</option>
+              <option value="N/A">N/A</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <div class="other-bwts-container" style="display:none; margin-top:10px;">
+            <label>Specify Other BWTS Type<input type="text" name="otherBwts" placeholder="Type other BWTS name"></label>
+          </div>
+
+          <label>NOx Tier III Equipment<input type="text" name="nox" placeholder="Enter NOx Tier III Equipment (or N/A)"></label>
+
+          <label>ECDIS Type/Model
+            <select name="ecdis" onchange="toggleOtherInput(this, 'ecdis')">
+              <option value="">Select ECDIS Model (or N/A)</option>
+              <option value="JRC JAN-7201">JRC JAN-7201 (2014)</option>
+              <option value="JRC JAN-9201">JRC JAN-9201 (2014)</option>
+              <option value="FURUNO FMD-3200">FURUNO FMD-3200 (2012)</option>
+              <option value="FURUNO FMD-3300">FURUNO FMD-3300 (2012)</option>
+              <option value="N/A">N/A</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <div class="other-ecdis-container" style="display:none; margin-top:10px;">
+            <label>Specify Other ECDIS Model<input type="text" name="otherEcdis" placeholder="Type other ECDIS model"></label>
+          </div>
+          <div class="form-row">
+            <label>Reason for Leaving<input type="text" name="reason" placeholder="Enter Reason for Leaving"></label>
+            <label>Trading Route<input type="text" name="tradeRoute" placeholder="Enter Trading Route (e.g., Asia-Europe)"></label>
+          </div>
+          <div class="form-row">
+            <label>From<input type="date" name="fromDate" class="from-date"></label>
+            <label>To<input type="date" name="toDate" class="to-date"></label>
+          </div>
+          <label>Total Service Duration:<span class="duration-display" style="font-weight: normal; color: #2D3748; margin-left: 5px;">-</span></label>
+        </fieldset>
+      </template>
+
+      <button type="button" id="addExperienceButton" class="text-sm bg-cami-blue-light hover:bg-cami-blue text-cami-blue hover:text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out mb-4">
+        + Add Another Experience
+      </button>
+      
+      <div class="button-container">
+        <button type="button" id="backButton" class="back-btn">Back to Personal Info</button>
+        <div class="main-actions">
+            <button type="button" class="print-btn" onclick="generateCompactPreview()">Preview & Print Summary</button>
+            <button type="submit" class="submit-btn">Submit & Email</button>
+        </div>
+      </div>
+    </form>
+
+    <div id="printPreview" class="print-preview"></div>
+  </div> <!-- end of .form-container -->
+
+  <script>
+    const STORAGE_KEY_SEA_EXPERIENCE = 'seaExperienceFormData_v2'; // v2 to avoid conflicts if old data format exists
+    const MAX_EXPERIENCES = 15;
+
+    function saveSeaExperienceData() {
+        const experiences = [];
+        document.querySelectorAll('#experienceContainer .experience-block').forEach(block => {
+            const experienceData = {};
+            block.querySelectorAll('input, select').forEach(input => {
+                const name = input.getAttribute('name');
+                if (name) {
+                    if (input.type === 'checkbox') {
+                        experienceData[name] = input.checked;
+                    } else {
+                        experienceData[name] = input.value;
+                    }
+                }
+            });
+            experiences.push(experienceData);
+        });
+        localStorage.setItem(STORAGE_KEY_SEA_EXPERIENCE, JSON.stringify(experiences));
+        console.log('Sea experience data saved:', experiences);
+    }
+
+    function loadSeaExperienceData() {
+        const savedDataString = localStorage.getItem(STORAGE_KEY_SEA_EXPERIENCE);
+        const experienceContainer = document.getElementById('experienceContainer');
+        if (experienceContainer) experienceContainer.innerHTML = ''; // Clear before loading
+
+        if (savedDataString) {
+            const experiences = JSON.parse(savedDataString);
+            console.log('Loading sea experience data:', experiences);
+            if (experiences.length > 0) {
+                experiences.forEach(expData => createExperienceBlock(expData));
+            } else {
+                 createExperienceBlock(); // Add one empty block if saved data is an empty array
+            }
+        } else {
+            createExperienceBlock(); // Add one empty block if no data found
+            console.log('No sea experience data found, adding initial block.');
+        }
+        updateAddExperienceButtonState();
+        updateProgress();
+    }
+    
+    function updateProgress() {
+      const blocks = document.querySelectorAll('.experience-block');
+      let totalPotentialFields = 0; // Count only for visible and relevant fields
+      let filledFields = 0;
+
+      blocks.forEach(block => {
+        // Define a list of field names to count for progress for each block
+        const relevantFieldNames = [
+            'rank', 'vesselName', 'registry', 'yearBuilt', 'shipType', 'gt', 
+            'mainEngine', 'hpkw', 'agency', 'bwts', 'nox', 'ecdis', 
+            'reason', 'tradeRoute', 'fromDate', 'toDate'
+        ];
+        
+        relevantFieldNames.forEach(fieldName => {
+            const field = block.querySelector(`[name="${fieldName}"]`);
+            if (field && field.offsetParent !== null) { // Visible
+                totalPotentialFields++;
+                if ((field.type === 'checkbox' || field.type === 'radio') ? field.checked : (field.value && field.value.trim() !== '')) {
+                    filledFields++;
+                }
+            }
+        });
+
+        // Special handling for "other" inputs if their select is "Other"
+        const bwtsSelect = block.querySelector('[name="bwts"]');
+        if (bwtsSelect && bwtsSelect.value === 'Other') {
+            const otherBwtsInput = block.querySelector('[name="otherBwts"]');
+            if (otherBwtsInput && otherBwtsInput.offsetParent !== null) {
+                totalPotentialFields++;
+                if (otherBwtsInput.value && otherBwtsInput.value.trim() !== '') filledFields++;
+            }
+        }
+        const ecdisSelect = block.querySelector('[name="ecdis"]');
+        if (ecdisSelect && ecdisSelect.value === 'Other') {
+            const otherEcdisInput = block.querySelector('[name="otherEcdis"]');
+            if (otherEcdisInput && otherEcdisInput.offsetParent !== null) {
+                totalPotentialFields++;
+                if (otherEcdisInput.value && otherEcdisInput.value.trim() !== '') filledFields++;
+            }
+        }
+      });
+      
+
+      const percent = totalPotentialFields > 0 ? Math.floor((filledFields / totalPotentialFields) * 100) : 0;
+      const bar = document.querySelector('#progressBar div');
+      const info = document.getElementById('progressInfo');
+      
+      if (bar) bar.style.width = percent + '%';
+      if (info) info.textContent = `${percent}% Complete (${filledFields} of ${totalPotentialFields} fields filled)`;
+
+      if (bar) {
+        if (percent < 40) bar.style.backgroundColor = '#dc3545'; // Red
+        else if (percent < 70) bar.style.backgroundColor = '#ffc107'; // Yellow
+        else bar.style.backgroundColor = '#28a745'; // Green
+      }
+    }
+
+    function toggleOtherInput(selectElement, type) {
+      const block = selectElement.closest('.experience-block');
+      const otherContainer = block.querySelector(`.other-${type}-container`);
+      const otherInput = otherContainer.querySelector('input');
+      
+      if (selectElement.value === "Other") {
+        otherContainer.style.display = 'block';
+        otherInput.required = true; 
+      } else {
+        otherContainer.style.display = 'none';
+        if (otherInput) {
+            otherInput.value = '';
+            otherInput.required = false;
+        }
+      }
+      updateProgress(); 
+      saveSeaExperienceData();
+    }
+    
+    function updateAddExperienceButtonState() {
+        const addButton = document.getElementById('addExperienceButton');
+        const container = document.getElementById('experienceContainer');
+        if (!addButton || !container) return;
+
+        const currentCount = container.querySelectorAll('.experience-block').length;
+        addButton.classList.toggle('hidden', currentCount >= MAX_EXPERIENCES);
+    }
+
+    function renumberLegends() {
+        const blocks = document.querySelectorAll('#experienceContainer .experience-block');
+        blocks.forEach((block, index) => {
+            const legend = block.querySelector('legend');
+            if (legend) legend.textContent = `Experience #${index + 1}`;
+        });
+    }
+
+    function createExperienceBlock(data = null) {
+        const container = document.getElementById('experienceContainer');
+        const template = document.getElementById('experienceTemplate').content.cloneNode(true);
+        const newBlock = template.querySelector('.experience-block');
+
+        if (data) {
+            Object.keys(data).forEach(key => {
+                const input = newBlock.querySelector(`[name="${key}"]`);
+                if (input) {
+                    if (input.type === 'checkbox') {
+                        input.checked = data[key];
+                    } else {
+                        input.value = data[key];
+                    }
+                     // Special handling for selects that show/hide other fields
+                    if (key === 'bwts' || key === 'ecdis') {
+                       toggleOtherInput(input, key); // Ensure "Other" field visibility is correct
+                    }
+                }
+            });
+        }
+        
+        const removeButton = newBlock.querySelector('.removeExperienceButton');
+        removeButton.addEventListener('click', () => {
+            newBlock.remove();
+            renumberLegends();
+            updateAddExperienceButtonState();
+            updateProgress();
+            saveSeaExperienceData();
+        });
+
+        newBlock.querySelectorAll('.from-date, .to-date').forEach(dateInput => {
+            dateInput.addEventListener('change', (event) => {
+                updateDurationDisplay(event.target.closest('.experience-block'));
+                saveSeaExperienceData();
+            });
+        });
+        
+        // Trigger initial duration display for loaded data
+        if (data) {
+            updateDurationDisplay(newBlock);
+        }
+        
+        // Attach onchange for select elements with "Other" option
+        newBlock.querySelectorAll('select[name="bwts"], select[name="ecdis"]').forEach(selectElement => {
+            const type = selectElement.name.includes('bwts') ? 'bwts' : 'ecdis';
+            selectElement.onchange = () => toggleOtherInput(selectElement, type);
+             // Initial toggle if loaded data sets select to 'Other'
+            if (data && selectElement.value === "Other") {
+                toggleOtherInput(selectElement, type);
+            }
+        });
+
+
+        container.appendChild(newBlock);
+        renumberLegends();
+        return newBlock;
+    }
+
+    function addExperienceOnClick() {
+        const container = document.getElementById('experienceContainer');
+        if (container.querySelectorAll('.experience-block').length < MAX_EXPERIENCES) {
+            createExperienceBlock();
+            updateAddExperienceButtonState();
+            updateProgress();
+            saveSeaExperienceData();
+        }
+    }
+    
+
+    function generateCompactPreview() {
+      const container = document.getElementById('printPreview');
+      const blocks = document.querySelectorAll('.experience-block');
+      
+      let tableHTML = `
+        <h2 style="text-align:center; margin-bottom: 20px; font-size: 14px; color: #000;">SEA EXPERIENCE SUMMARY</h2>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 3%;">#</th>
+              <th style="width: 8%;">Rank</th>
+              <th style="width: 12%;">Vessel Name</th>
+              <th style="width: 6%;">Registry</th>
+              <th style="width: 5%;">Year Built</th>
+              <th style="width: 10%;">Ship Type</th>
+              <th style="width: 6%;">GT</th>
+              <th style="width: 9%;">Main Engine</th>
+              <th style="width: 6%;">HP/kW</th>
+              <th style="width: 9%;">Agency</th>
+              <th style="width: 7%;">BWTS</th>
+              <th style="width: 7%;">NOx Eq.</th>
+              <th style="width: 7%;">ECDIS</th>
+              <th style="width: 10%;">Reason for Leaving</th>
+              <th style="width: 10%;">Trading Route</th>
+              <th style="width: 6%;">From</th>
+              <th style="width: 6%;">To</th>
+              <th style="width: 7%;">Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+      
+      let grandTotalDays = 0;
+      
+      blocks.forEach((block, index) => {
+        const getData = (selector, isDate = false) => {
+          const element = block.querySelector(selector);
+          let value = element ? element.value.trim() : '';
+          if (isDate && value) {
+            try {
+                const d = new Date(value);
+                if (!isNaN(d.getTime())) {
+                    const adjustedDate = new Date(d.valueOf() + d.getTimezoneOffset() * 60 * 1000);
+                    return `${String(adjustedDate.getMonth() + 1).padStart(2, '0')}/${String(adjustedDate.getDate()).padStart(2, '0')}/${adjustedDate.getFullYear()}`;
+                }
+            } catch (e) { /* ignore error, return original value */ }
+          }
+          return value || '-';
+        };
+        
+        const fromDateStr = getData('input[name="fromDate"]', true);
+        const toDateStr = getData('input[name="toDate"]', true);
+        const fromDateVal = block.querySelector('input[name="fromDate"]').value;
+        const toDateVal = block.querySelector('input[name="toDate"]').value;
+
+        let durationText = '-';
+        
+        if (fromDateVal && toDateVal) {
+          const from = new Date(fromDateVal);
+          const to = new Date(toDateVal);
+          if (!isNaN(from) && !isNaN(to) && to >= from) {
+            let currentExperienceDays = Math.ceil((to - from) / (1000 * 60 * 60 * 24)) + 1;
+            grandTotalDays += currentExperienceDays;
+            durationText = formatDuration(currentExperienceDays);
+          }
+        }
+        
+        let bwts = getData('select[name="bwts"]');
+        if (bwts === 'Other') {
+          const otherBwts = getData('input[name="otherBwts"]');
+          bwts = otherBwts !== '-' ? `Other: ${otherBwts}` : 'Other';
+        }
+        
+        let ecdis = getData('select[name="ecdis"]');
+        if (ecdis === 'Other') {
+          const otherEcdis = getData('input[name="otherEcdis"]');
+          ecdis = otherEcdis !== '-' ? `Other: ${otherEcdis}` : 'Other';
+        }
+        
+        tableHTML += `
+          <tr>
+            <td class="experience-header" style="background-color: #f8f9fa; color: #333;">${index + 1}</td>
+            <td>${getData('select[name="rank"]')}</td>
+            <td>${getData('input[name="vesselName"]')}</td>
+            <td>${getData('input[name="registry"]')}</td>
+            <td>${getData('input[name="yearBuilt"]')}</td>
+            <td>${getData('select[name="shipType"]')}</td>
+            <td>${getData('input[name="gt"]')}</td>
+            <td>${getData('input[name="mainEngine"]')}</td>
+            <td>${getData('input[name="hpkw"]')}</td>
+            <td>${getData('input[name="agency"]')}</td>
+            <td>${bwts}</td>
+            <td>${getData('input[name="nox"]')}</td>
+            <td>${ecdis}</td>
+            <td>${getData('input[name="reason"]')}</td>
+            <td>${getData('input[name="tradeRoute"]')}</td>
+            <td>${fromDateStr}</td>
+            <td>${toDateStr}</td>
+            <td>${durationText}</td>
+          </tr>
+        `;
+      });
+      
+      const totalSeaTime = formatDuration(grandTotalDays, true);
+      
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      const timeStr = now.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit' });
+      
+      tableHTML += `
+          </tbody>
+        </table>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; font-size: 9px; color: #333;">
+          <div style="color: #555;">
+            Generated on: ${dateStr} at ${timeStr}<br>
+            Total Experiences: ${blocks.length} | Total Sea Time: <strong style="color: #000;">${totalSeaTime}</strong>
+          </div>
+          <div style="color: #777; font-style: italic; text-align: right;">
+            Applicant's Signature: _________________________<br>
+            Date: _________________________
+          </div>
+        </div>
+      `;
+      
+      container.innerHTML = tableHTML;
+      window.print();
+    }
+
+    function formatDuration(totalDays, useFullWords = false) {
+        if (totalDays <= 0) return useFullWords ? '0 days' : '0d';
+
+        let years = 0, months = 0, days = totalDays;
+        const yStr = useFullWords ? 'year' : 'y';
+        const mStr = useFullWords ? 'month' : 'm';
+        const dStr = useFullWords ? 'day' : 'd';
+
+        if (days >= 365.25) { // Average days in a year
+            years = Math.floor(days / 365.25);
+            days -= years * 365.25;
+        }
+        if (days >= 30.44) { // Average days in a month
+            months = Math.floor(days / 30.44);
+            days -= months * 30.44;
+        }
+        days = Math.round(days); // Round remaining days
+
+        // Adjust if rounding days bumps a month/year
+        if (days === 30 && !useFullWords) { // Approx for short display, full words will be more precise
+            months++;
+            days = 0;
+        }
+        if (months === 12 && !useFullWords){
+            years++;
+            months=0;
+        }
+
+
+        let durationStr = '';
+        if (years > 0) durationStr += `${years}${yStr}${useFullWords && years > 1 ? 's' : ''} `;
+        if (months > 0) durationStr += `${months}${mStr}${useFullWords && months > 1 ? 's' : ''} `;
+        // Show days if it's the only unit, or if there are years/months and remaining days
+        if (days > 0 || durationStr === '') durationStr += `${days}${dStr}${useFullWords && days > 1 ? 's' : ''}`;
+        
+        return durationStr.trim() || (useFullWords ? '0 days' : '0d');
+    }
+    
+    function updateDurationDisplay(block) {
+        if (!block) return;
+        const fromInput = block.querySelector('.from-date');
+        const toInput = block.querySelector('.to-date');
+        const display = block.querySelector('.duration-display');
+
+        if (fromInput.value && toInput.value) {
+            const fromDate = new Date(fromInput.value);
+            const toDate = new Date(toInput.value);
+
+            if (!isNaN(fromDate) && !isNaN(toDate) && toDate >= fromDate) {
+                let diffDays = Math.ceil((toDate - fromDate) / (1000 * 60 * 60 * 24)) + 1;
+                display.textContent = formatDuration(diffDays);
+            } else {
+                display.textContent = '- (Invalid Dates)';
+            }
+        } else {
+            display.textContent = '-';
+        }
+    }
+
+
+    // Initial setup
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSeaExperienceData(); // Loads data or adds one initial block
+
+      document.getElementById('addExperienceButton').addEventListener('click', addExperienceOnClick);
+      document.getElementById('backButton').addEventListener('click', () => {
+          saveSeaExperienceData(); // Save before going back
+          window.location.href = 'index.html';
+      });
+      
+      // Auto-save on form changes (using event delegation on the container)
+      const experienceForm = document.getElementById('seaExperienceForm');
+      if (experienceForm) {
+        experienceForm.addEventListener('input', (event) => {
+            if (event.target.closest('.experience-block')) {
+                saveSeaExperienceData();
+                updateProgress(); // Update progress on any input
+            }
+        });
+        experienceForm.addEventListener('change', (event) => { // For selects and date inputs
+            if (event.target.closest('.experience-block')) {
+                saveSeaExperienceData();
+                updateProgress();
+                 if (event.target.classList.contains('from-date') || event.target.classList.contains('to-date')) {
+                    updateDurationDisplay(event.target.closest('.experience-block'));
+                }
+            }
+        });
+      }
+    });
+
+
+    document.getElementById('seaExperienceForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      saveSeaExperienceData(); // Save data before submission attempt
+      
+      const experienceBlocks = document.querySelectorAll('#experienceContainer .experience-block');
+      if (experienceBlocks.length === 0) {
+          alert('Please add at least one sea experience.');
+          return;
+      }
+
+      let allValid = true;
+      experienceBlocks.forEach((block, index) => {
+          const rank = block.querySelector('select[name="rank"]');
+          const shipType = block.querySelector('select[name="shipType"]');
+          if (!rank.value) {
+              alert(`Rank is required for Experience #${index + 1}.`);
+              rank.focus();
+              allValid = false;
+              return; 
+          }
+          if (!shipType.value) {
+              alert(`Ship Type is required for Experience #${index + 1}.`);
+              shipType.focus();
+              allValid = false;
+              return; 
+          }
+           // Validate "Other" fields if their selects are "Other"
+          const bwtsSelect = block.querySelector('select[name="bwts"]');
+          const otherBwtsInput = block.querySelector('input[name="otherBwts"]');
+          if (bwtsSelect && bwtsSelect.value === 'Other' && (!otherBwtsInput || !otherBwtsInput.value.trim())) {
+              alert(`"Specify Other BWTS Type" is required for Experience #${index + 1}.`);
+              if (otherBwtsInput) otherBwtsInput.focus();
+              allValid = false;
+              return;
+          }
+          const ecdisSelect = block.querySelector('select[name="ecdis"]');
+          const otherEcdisInput = block.querySelector('input[name="otherEcdis"]');
+          if (ecdisSelect && ecdisSelect.value === 'Other' && (!otherEcdisInput || !otherEcdisInput.value.trim())) {
+              alert(`"Specify Other ECDIS Model" is required for Experience #${index + 1}.`);
+              if(otherEcdisInput) otherEcdisInput.focus();
+              allValid = false;
+              return;
+          }
+      });
+
+      if (!allValid) return;
+
+      const formData = new FormData(this);
+      const data = { experiences: [] };
+      document.querySelectorAll('#experienceContainer .experience-block').forEach(block => {
+            const experienceData = {};
+            block.querySelectorAll('input, select').forEach(input => {
+                const name = input.getAttribute('name');
+                if (name) experienceData[name] = input.value;
+            });
+            data.experiences.push(experienceData);
+        });
+
+      console.log('Form data for submission:', data);
+      alert('Form data prepared for submission. See console for details. Implement actual submission logic.');
+    });
+  </script>
+</body>
+</html>
