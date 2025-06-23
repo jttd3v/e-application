@@ -147,9 +147,9 @@
                         <label for="suffix" class="text-sm font-medium text-cami-text">Suffix:</label>
                         <input type="text" id="suffix" name="suffix" placeholder="e.g. Jr." class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
                     </div>
-                    <div class="flex flex-col gap-1 md:flex-initial md:w-36">
+                    <div class="flex flex-col gap-1 md:flex-initial md:w-48">
                         <label for="gender" class="text-sm font-medium text-cami-text">Gender:</label>
-                        <select id="gender" name="gender" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray h-[38px]">
+                        <select id="gender" name="gender" class="border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
                             <option value="" disabled selected>Select</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -315,7 +315,7 @@
                             <option value="Divorced">Divorced</option>
                             <option value="Other">Other</option>
                         </select>
-                         <input type="text" id="otherMaritalStatus" name="otherMaritalStatus" placeholder="Specify other status" class="hidden mt-2 border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
+                        <input type="text" id="otherMaritalStatus" name="otherMaritalStatus" placeholder="Specify other status" maxlength="50" class="hidden mt-2 border border-cami-gray-medium bg-white text-sm p-2 rounded-md focus:ring-cami-blue focus:border-cami-blue w-full placeholder-cami-gray">
                     </div>
                 </div>
 
@@ -520,6 +520,6 @@
         </div>
     </div>
     <!-- Flatpickr JS removed -->
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="index.tsx"></script>
 </body>
 </html>
