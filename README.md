@@ -14,11 +14,3 @@ Use `npm run build` to generate a production build and `npm run preview` to serv
 
 ## Repository Structure
 
-- `index.html` / `index.tsx` – personal information form
-- `camiip2.html` – sea experience form
-- `index.css` – shared styling
-- `USER_MANUAL.md` – detailed usage instructions
-
-## User Manual
-
-See [USER_MANUAL.md](USER_MANUAL.md) for a walkthrough of the form workflow, navigation and data persistence.

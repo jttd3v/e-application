@@ -1,0 +1,4 @@
+# Code owners for automated review assignment
+/server.js @backend-team
+/*.html @frontend-team
+* @maintainers
