@@ -464,6 +464,7 @@
 
   <script>
     const STORAGE_KEY_SEA_EXPERIENCE = 'seaExperienceFormData_v2'; // v2 to avoid conflicts if old data format exists
+    const STORAGE_KEY_MAIN_FORM = 'mainApplicationFormData';
     const MAX_EXPERIENCES = 15;
 
     function saveSeaExperienceData() {
@@ -949,7 +950,32 @@
         });
 
       console.log('Form data for submission:', data);
-      alert('Form data prepared for submission. See console for details. Implement actual submission logic.');
+
+      const personalData = localStorage.getItem(STORAGE_KEY_MAIN_FORM);
+      const payload = {
+        personal: personalData ? JSON.parse(personalData) : {},
+        experiences: data.experiences
+      };
+
+      fetch('submit_application.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(response => response.json())
+      .then(res => {
+        if (res.status === 'ok') {
+          alert('Application submitted successfully.');
+          localStorage.removeItem(STORAGE_KEY_MAIN_FORM);
+          localStorage.removeItem(STORAGE_KEY_SEA_EXPERIENCE);
+        } else {
+          alert('Submission failed: ' + (res.message || 'Unknown error'));
+        }
+      })
+      .catch(err => {
+        console.error('Submission error', err);
+        alert('Unable to submit application.');
+      });
     });
   </script>
 </body>

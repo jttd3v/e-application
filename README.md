@@ -22,3 +22,22 @@ Use `npm run build` to generate a production build and `npm run preview` to serv
 ## User Manual
 
 See [USER_MANUAL.md](USER_MANUAL.md) for a walkthrough of the form workflow, navigation and data persistence.
+
+## Email Submission Backend
+
+The "Submit & Email" button on the sea experience page sends the collected form
+data to `submit_application.php`. The script uses **PHPMailer** to deliver the
+application via SMTP. To enable this feature you need PHP 8+ and Composer
+installed locally.
+
+Run `composer install` in the project root to install PHPMailer and set the
+following environment variables for your SMTP server:
+
+- `SMTP_HOST`
+- `SMTP_USER`
+- `SMTP_PASS`
+- `SMTP_PORT` (defaults to 465 if unset)
+- `APPLICATION_RECEIVER` – email address that receives the submissions
+
+Once configured, serve the project with a PHP-capable server so the PHP script
+can run when the form is submitted.
