@@ -1,0 +1,537 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 14px; /* Increased base font size */
+    line-height: 1.6; /* Improved line height */
+    background-color: #F7FAFC; /* Lighter, softer background */
+    color: #2D3748; /* Softer text color than pure black */
+    padding: 20px; /* Increased padding */
+}
+
+.form-container {
+    max-width: 850px; /* Slightly wider for better spacing */
+    margin: 20px auto;
+    background: white;
+    border: 1px solid #CBD5E0; /* Softer border */
+    border-radius: 8px; /* Rounded corners for modern look */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px; /* Increased padding */
+    border-bottom: 1px solid #E2E8F0; /* Softer separator */
+}
+
+.logo {
+    width: 70px; /* Adjusted size */
+    height: 70px;
+    border: 1px solid #CBD5E0; /* Softer border */
+    border-radius: 4px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: #EBF4FF; /* Light blue accent */
+}
+
+.logo-text {
+    text-align: center;
+    font-size: 10px; /* Maintained small size for logo text */
+    font-weight: 600;
+    color: #005A9C; /* Primary blue */
+}
+
+.company-info {
+    flex: 1;
+    text-align: center;
+}
+
+.company-name {
+    font-weight: 700; /* Bolder */
+    font-size: 18px; /* Increased size */
+    color: #005A9C; /* Primary blue */
+    margin-bottom: 5px;
+}
+
+.company-details {
+    font-size: 11px; /* Slightly increased */
+    line-height: 1.5;
+    color: #4A5568; /* Medium gray for less emphasis */
+}
+
+.header-right {
+    text-align: right;
+    font-size: 11px; /* Slightly increased */
+    min-width: 130px;
+    color: #4A5568;
+}
+
+.header-right strong {
+    color: #2D3748;
+}
+
+.form-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px; /* Increased size */
+    color: #005A9C; /* Primary blue */
+    padding: 15px 20px;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.date-section {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E2E8F0;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 15px;
+}
+
+.date-section strong {
+    font-weight: 600;
+    color: #2D3748;
+}
+
+.date-section em {
+    font-size: 11px;
+    color: #718096; /* Lighter gray for italics */
+}
+
+.checkbox-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.checkbox-group label {
+    font-size: 12px; /* Increased size */
+    font-weight: 400;
+    color: #2D3748;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.photo-section {
+    width: 120px;
+    height: 150px;
+    border: 1px dashed #A0AEC0; /* Dashed softer border */
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    text-align: center;
+    padding: 10px;
+    color: #718096;
+    background-color: #F7FAFC;
+}
+
+.content {
+    padding: 20px 25px; /* Increased padding */
+}
+
+.section-title {
+    font-weight: 700;
+    margin: 25px 0 15px 0;
+    font-size: 16px; /* Increased size */
+    color: #005A9C; /* Primary blue */
+    border-bottom: 1px solid #E2E8F0;
+    padding-bottom: 8px;
+}
+.section-title:first-child {
+    margin-top: 0;
+}
+
+
+.form-row {
+    display: flex;
+    gap: 20px; /* Increased gap */
+    margin-bottom: 12px; /* Increased margin */
+    align-items: flex-start; /* Align items to top for multi-line labels */
+    flex-wrap: wrap;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column; /* Labels on top of inputs */
+    gap: 4px; /* Gap between label and input */
+    flex-grow: 1;
+    min-width: 150px; /* Minimum width for form groups */
+}
+
+.form-group label {
+    font-size: 12px; /* Consistent label size */
+    font-weight: 600; /* Bolder labels */
+    color: #2D3748;
+    white-space: nowrap;
+}
+
+.form-group input[type="text"],
+.date-input,
+.srn-input {
+    border: 1px solid #CBD5E0; /* Softer, full border */
+    background: #FFFFFF;
+    font-size: 13px; /* Increased input text size */
+    padding: 8px 10px; /* Increased padding within input */
+    border-radius: 4px;
+    color: #2D3748;
+    width: 100%; /* Make inputs take full width of their group */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input[type="text"]::placeholder,
+.date-input::placeholder,
+.srn-input::placeholder {
+    color: #A0AEC0; /* Lighter placeholder text */
+    font-size: 12px;
+}
+
+.form-group input[type="text"]:focus,
+.date-input:focus,
+.srn-input:focus,
+.emergency-table input[type="text"]:focus {
+    border-color: #60A5FA; /* Accent blue on focus */
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2); /* Focus ring */
+    outline: none;
+}
+
+/* Specific width classes for inputs if still needed, but flex-grow handles most cases */
+.form-group input.short {
+    max-width: 100px; /* Example specific width */
+    flex-grow: 0;
+}
+
+.form-group input.medium {
+    max-width: 200px;
+    flex-grow: 0;
+}
+
+.form-group input.long {
+    max-width: 100%; /* Or specific large value */
+}
+
+.srn-input-container { /* Wrapper for SRN input if alignment is an issue */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.srn-input-container strong {
+    font-weight: 600;
+}
+.srn-input {
+    min-width: 150px !important; /* Ensure it has enough space */
+    width: auto !important;
+    flex-grow: 0 !important;
+    border: 1px solid #CBD5E0 !important; /* Override inline styles if any */
+}
+.date-input {
+    min-width: 150px !important;
+    width: auto !important;
+    flex-grow: 0 !important;
+    border: 1px solid #CBD5E0 !important;
+}
+
+
+.emergency-contact,
+.education-section {
+    border: 1px solid #E2E8F0; /* Softer border */
+    border-radius: 6px;
+    padding: 15px;
+    margin: 20px 0;
+    background-color: #F9FAFB; /* Slightly off-white background for sections */
+}
+
+.emergency-contact-title,
+.education-title {
+    font-size: 14px; /* Increased size */
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #005A9C; /* Primary blue */
+}
+.education-title{
+    text-align: center;
+}
+
+
+.emergency-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.emergency-table th,
+.emergency-table td {
+    border: 1px solid #CBD5E0; /* Softer table borders */
+    padding: 8px 10px; /* Increased padding */
+    font-size: 12px; /* Increased table text size */
+    text-align: left;
+}
+
+.emergency-table th {
+    background-color: #EBF4FF; /* Light blue header */
+    font-weight: 600;
+    color: #005A9C;
+}
+
+.emergency-table input[type="text"] {
+    width: 100%;
+    border: 1px solid #D1D5DB; /* Slightly different border for table inputs if needed */
+    background: transparent;
+    font-size: 12px;
+    padding: 6px 8px;
+    border-radius: 3px;
+    color: #2D3748;
+}
+.emergency-table td input[type="text"] { /* remove inline styles from HTML if possible */
+    border: 1px solid #D1D5DB !important;
+    width: 100% !important;
+}
+
+
+.education-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 12px;
+    align-items: flex-start; /* Changed from center to flex-start */
+    flex-wrap: wrap;
+}
+
+
+input[type="checkbox"] {
+    margin-right: 8px; /* Increased margin */
+    vertical-align: middle;
+    width: 16px; /* Larger checkbox */
+    height: 16px;
+    accent-color: #005A9C; /* Primary blue for checkbox */
+    cursor: pointer;
+}
+
+.ssn-input { /* If specific styling is still needed for SSN inputs */
+    max-width: 120px !important;
+    flex-grow: 0;
+}
+
+.submit-btn {
+    background-color: #005A9C; /* Primary blue */
+    color: white;
+    padding: 12px 25px; /* Larger padding */
+    border: none;
+    border-radius: 6px; /* Rounded corners */
+    font-size: 14px; /* Increased font size */
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    display: block;
+    margin: 20px auto 0 auto; /* Centering */
+}
+
+.submit-btn:hover {
+    background-color: #004C86; /* Darker shade on hover */
+}
+.submit-btn:active {
+    background-color: #003D6B; /* Even darker on active */
+    transform: translateY(1px);
+}
+
+
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        font-size: 13px;
+    }
+    .form-container {
+        margin: 10px auto;
+    }
+
+    .header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .logo {
+        margin: 0 auto 10px auto;
+    }
+
+    .header-right {
+        text-align: center;
+        width: 100%;
+        font-size: 10px;
+    }
+    .company-name {
+        font-size: 16px;
+    }
+    .company-details {
+        font-size: 10px;
+    }
+    .form-title {
+        font-size: 18px;
+    }
+
+    .date-section {
+        flex-direction: column;
+        align-items: stretch; /* Stretch items */
+        gap: 15px;
+    }
+    .photo-section{
+        margin-top: 10px;
+        width: 100%; /* Full width on mobile for photo section */
+        height: auto;
+        min-height: 120px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .form-group input[type="text"],
+    .date-input,
+    .srn-input,
+    .form-group input.short,
+    .form-group input.medium,
+    .form-group input.long,
+    .ssn-input {
+        min-width: 100% !important;
+        width: 100% !important;
+        max-width: 100% !important; /* Override specific widths */
+    }
+    .srn-input-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .srn-input, .date-input {
+         width: 100% !important;
+    }
+
+
+    .education-row {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .emergency-table {
+        font-size: 11px;
+    }
+    .emergency-table th,
+    .emergency-table td {
+        padding: 6px;
+    }
+     .emergency-table td input[type="text"]{
+        font-size: 11px;
+        padding: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 12px;
+    }
+    .form-container {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+    }
+
+    .company-name {
+        font-size: 15px;
+    }
+    .company-details, .header-right, .form-group label, .emergency-contact-title {
+        font-size: 10px;
+    }
+     .emergency-table, .emergency-table input {
+        font-size: 10px;
+    }
+    .form-title {
+        font-size: 16px;
+    }
+
+    .checkbox-group label {
+        font-size: 11px;
+    }
+    .content {
+        padding: 15px;
+    }
+    .submit-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+}
+
+/* Styling for text directly in date-section, etc. */
+.date-section > div:first-child > div:first-child { /* For "Date Applied: ____" */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.date-section > div:first-child > div:first-child input.date-input{
+    flex-grow: 1;
+}
+
+/* Styling for SRN: ____ */
+.content > div:nth-of-type(2) { /* This targets the SRN line specifically - might need a class for robustness */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: flex-end;
+}
+.content > div:nth-of-type(2) input.srn-input {
+     flex-grow: 0; /* Don't let SRN input grow too much */
+     width: 150px; /* Fixed width for SRN */
+}
+
+/* Style for "Person to Contact in your Previous Manning Company" section */
+.emergency-contact .form-group { /* Target form-group specifically within emergency-contact */
+    align-items: center; /* Center label and input for this specific case */
+}
+.emergency-contact .form-group label {
+    white-space: normal; /* Allow label to wrap if needed */
+    text-align: center;
+    margin-bottom: 5px;
+}
+.emergency-contact .form-group input.long {
+    max-width: 300px; /* Limit width of this input */
+    margin: 0 auto; /* Center it if it's a block or flex item */
+}
+
+/* Allottee name/address in table - needs careful targeting or HTML class changes */
+.emergency-table tbody tr:last-child td {
+    display: flex;
+    flex-direction: column; /* Stack label-like text and input */
+    gap: 4px;
+}
+.emergency-table tbody tr:last-child td input[type="text"] {
+    width: 100% !important; /* Ensure full width within the td */
+}
+
+/* Ensure placeholders are visible if the input itself has a background in some states (not currently the case) */
+.form-group input[type="text"]:-webkit-autofill,
+.form-group input[type="text"]:-webkit-autofill:hover,
+.form-group input[type="text"]:-webkit-autofill:focus,
+.form-group input[type="text"]:-webkit-autofill:active {
+    -webkit-text-fill-color: #2D3748 !important; /* Ensure text color is not overridden by autofill */
+    -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset !important; /* Keep background white */
+    transition: background-color 5000s ease-in-out 0s;
+}
+

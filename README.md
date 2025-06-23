@@ -1,41 +1,16 @@
-# e-application
+# E-Application for CAMII
 
-This project contains a client-side form for collecting sea experience data. A small Node.js server is provided to handle submissions so that multiple users can submit the form without interfering with each other. Each submission is stored as a separate file on the server.
+This project is a Vite-based web application used for collecting personal and sea service information for Cebu Ace-Maritime International Inc. It is written in TypeScript and stores form data in the browser so users can complete the application over multiple sessions.
 
-## Running the Server
+## Running Locally
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Start the server:
-   ```bash
-   npm start
-   ```
-   The form is served at `http://localhost:3000/e-app-202506040528.html`.
+**Prerequisites:** Node.js 18+
 
-Submitted data will be saved in the `submissions/` directory with a unique timestamped filename. In addition, a PDF copy of each submission is generated and emailed to the address defined in your environment variables using Nodemailer.
+1. Install dependencies with `npm install`.
+2. Set the `GEMINI_API_KEY` value in [.env.local](.env.local).
+3. Start a development server with `npm run dev` and open the printed URL in a browser.
 
-### Email Configuration
+Use `npm run build` to generate a production build and `npm run preview` to serve the built files.
 
-Set the following environment variables before starting the server:
+## Repository Structure
 
-```
-EMAIL_HOST   - SMTP host
-EMAIL_PORT   - SMTP port (e.g. 587)
-EMAIL_SECURE - 'true' for secure (TLS) connection
-EMAIL_USER   - SMTP username
-EMAIL_PASS   - SMTP password
-EMAIL_FROM   - Sender address
-EMAIL_TO     - Recipient address
-```
-
-## Branching Workflow
-
-1. Create a feature branch from `main` with a descriptive name, such as
-   `feature/update-form`.
-2. Commit small, focused changes and push the branch to GitHub.
-3. Open a Pull Request against `main`. Reviewers are assigned automatically via
-   the CODEOWNERS file.
-4. Ensure all checks pass and obtain at least one approval before merging.
-5. Delete the feature branch after the PR is merged.
