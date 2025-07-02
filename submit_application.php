@@ -15,6 +15,26 @@ try {
         exit;
     }
 
+    $mysqli = new mysqli(
+        getenv('DB_HOST'),
+        getenv('DB_USER'),
+        getenv('DB_PASS'),
+        getenv('DB_NAME')
+    );
+    if ($mysqli->connect_error) {
+        throw new Exception('Database connection failed: ' . $mysqli->connect_error);
+    }
+    $stmt = $mysqli->prepare('INSERT INTO applications (personal, experiences) VALUES (?, ?)');
+    if (!$stmt) {
+        throw new Exception('Prepare failed: ' . $mysqli->error);
+    }
+    $personalJson = json_encode($payload['personal'] ?? []);
+    $experienceJson = json_encode($payload['experiences'] ?? []);
+    $stmt->bind_param('ss', $personalJson, $experienceJson);
+    $stmt->execute();
+    $stmt->close();
+    $mysqli->close();
+
     $mail = new PHPMailer(true);
 
     $mail->isSMTP();
