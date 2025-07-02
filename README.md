@@ -7,8 +7,7 @@ This project is a Vite-based web application used for collecting personal and se
 **Prerequisites:** Node.js 18+
 
 1. Install dependencies with `npm install`.
-2. Set the `GEMINI_API_KEY` value in [.env.local](.env.local).
-3. Start a development server with `npm run dev` and open the printed URL in a browser.
+2. Start a development server with `npm run dev` and open the printed URL in a browser.
 
 Use `npm run build` to generate a production build and `npm run preview` to serve the built files.
 
