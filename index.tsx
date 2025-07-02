@@ -4,6 +4,10 @@
  */
 
 const STORAGE_KEY_MAIN_FORM = 'mainApplicationFormData';
+const STORAGE_KEY_MAIN_FORM_PDF = 'MAIN_FORM_PDF';
+
+declare const html2canvas: any;
+declare const jspdf: any;
 const MAX_CHILDREN = 5;
 
 let isLoadingData = false; // Flag to prevent saving while loading
@@ -390,17 +394,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (nextPageButton && applicationForm) {
-        nextPageButton.addEventListener('click', (event) => {
-            event.preventDefault(); 
-            
+        nextPageButton.addEventListener('click', async (event) => {
+            event.preventDefault();
+
             if (dobInput) calculateAge(dobInput, ageDisplay, ageInputHidden); // Ensure age is current
 
             if (!applicationForm.checkValidity()) {
                 applicationForm.reportValidity();
-                return; 
+                return;
             }
-            
-            saveMainFormData(); 
+
+            saveMainFormData();
+
+            try {
+                const canvas = await html2canvas(document.body);
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                const pdf = new (jspdf as any).jsPDF({ orientation: 'portrait', unit: 'px', format: [canvas.width, canvas.height] });
+                pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+                const pdfString = pdf.output('datauristring');
+                localStorage.setItem(STORAGE_KEY_MAIN_FORM_PDF, pdfString);
+            } catch (err) {
+                console.error('Error creating PDF:', err);
+            }
+
             console.log('Next Page button clicked. Form is valid. Navigating to camiip2.html');
             window.location.href = 'camiip2.html';
         });
