@@ -535,3 +535,7 @@ input[type="checkbox"] {
     transition: background-color 5000s ease-in-out 0s;
 }
 
+
+@media print {
+  @page { size: portrait; margin: 0.5in; }
+}
