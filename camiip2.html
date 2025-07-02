@@ -6,6 +6,8 @@
   <title>CAMII - SEA EXPERIENCE FORM</title>
   <link rel="stylesheet" href="index.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
    <script>
       tailwind.config = { // Minimal config to ensure Tailwind utility classes are available if needed
         theme: {
@@ -465,6 +467,7 @@
   <script>
     const STORAGE_KEY_SEA_EXPERIENCE = 'seaExperienceFormData_v2'; // v2 to avoid conflicts if old data format exists
     const STORAGE_KEY_MAIN_FORM = 'mainApplicationFormData';
+    const STORAGE_KEY_MAIN_FORM_PDF = 'MAIN_FORM_PDF';
     const MAX_EXPERIENCES = 15;
 
     function saveSeaExperienceData() {
@@ -796,7 +799,35 @@
       `;
       
       container.innerHTML = tableHTML;
-      window.print();
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'p', unit: 'pt', format: 'a4' });
+
+      const storedPdf = localStorage.getItem(STORAGE_KEY_MAIN_FORM_PDF);
+      if (storedPdf) {
+        try {
+          const pageWidth = doc.internal.pageSize.getWidth();
+          const pageHeight = doc.internal.pageSize.getHeight();
+          doc.addImage(storedPdf, 'PNG', 0, 0, pageWidth, pageHeight);
+        } catch (err) {
+          console.error('Failed to add MAIN_FORM_PDF page', err);
+        }
+      }
+
+      html2canvas(container).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        doc.addPage('a4', 'l');
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const ratio = Math.min(pageWidth / canvas.width, pageHeight / canvas.height);
+        const imgWidth = canvas.width * ratio;
+        const imgHeight = canvas.height * ratio;
+        const x = (pageWidth - imgWidth) / 2;
+        const y = (pageHeight - imgHeight) / 2;
+        doc.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+        doc.save('ApplicationSummary.pdf');
+        if (storedPdf) localStorage.removeItem(STORAGE_KEY_MAIN_FORM_PDF);
+      });
     }
 
     function formatDuration(totalDays, useFullWords = false) {
